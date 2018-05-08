@@ -1,0 +1,49 @@
+﻿@model ProjectPRO.ViewModels.addGroupsViewModel
+@{
+    ViewBag.Title = "addGroups";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+
+<h2>addGroups</h2>
+@using (Html.BeginForm("addGr", "Home", FormMethod.Post))
+{
+    <table>
+        <tr>
+            <td>
+                @Html.LabelFor(m => m.SelGroup,"Group:")
+            </td>
+            <td>
+                @Html.DropDownListFor(m => Model.SelGroup,Model.Groups)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(m => m.SelUser, "User:")
+            </td>
+            <td>
+                @Html.DropDownListFor(m => Model.SelUser,Model.Users)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(m => m.Role, "Role")
+            </td>
+            <td>
+                @Html.DropDownListFor(m => Model.Role,new SelectList(new [] { "Teacher", "Student"}),"Select Role")
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="submit" value="Send" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.ValidationMessage("Error")
+            </td>
+        </tr>
+    </table>
+
+
+}
+

@@ -1,0 +1,82 @@
+﻿@model ProjectPRO.ViewModels.FilesViewModel
+@{
+    ViewBag.Title = "Files";
+    if (ViewBag.chg == 1)
+    {
+        Layout = "~/Views/Shared/_HomeLayout.cshtml";
+    }
+    if (ViewBag.chg == 2)
+    {
+        Layout = "~/Views/Shared/NoRightLayout.cshtml";
+    }
+}
+
+<h2>Files</h2>
+
+@if (Model.groups != null)
+{
+    <h3>Groups you are in</h3>
+    <table>
+        <tr>
+            <th></th>
+            <th>Id</th>
+            <th>Name</th>
+        </tr>
+
+
+        @foreach (var item in Model.groups)
+        {
+            string selectedRow = "";
+            if (item.gId == ViewBag.GroupId)
+            {
+                selectedRow = "success";
+            }
+            <tr class="@selectedRow">
+                <td>
+                    @Html.ActionLink("Select", "Files", new { gid = item.gId })
+                </td>
+                <td>
+                    @item.gId
+                </td>
+                <td>
+                    @item.Name
+                </td>
+            </tr>
+        }
+    </table>
+}
+@if (Model.file == null)
+{
+    <h3>No Current files for this group.</h3>
+    @Html.ActionLink("Add new file", "AddFile", new { gid = ViewBag.GroupId })
+}
+@if (Model.file != null)
+{
+    <h3>Files available to you</h3>
+    <table>
+        <tr>
+            <th>Author</th>
+            <th>File</th>
+        </tr>
+        @foreach (var item in Model.file)
+        {
+            <tr>
+                <td>
+                    @item.Author.Name
+                </td>
+                <td>
+                    <a href="@string.Format("{0}", item.link)"> @item.name </a>
+                </td>
+            </tr>
+        }
+     @if (ViewBag.GroupId != null)
+     {
+        <tr>
+            <td>
+                @Html.ActionLink("Add new file", "AddFile", new { gid = ViewBag.GroupId })
+            </td>
+        </tr>
+     }
+    </table>
+    
+}

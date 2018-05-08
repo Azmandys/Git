@@ -1,0 +1,40 @@
+﻿@model ProjectPRO.ViewModels.createDiscViewModel
+@{
+    ViewBag.Title = "createDisc";
+    if (ViewBag.chg == 1)
+    {
+        Layout = "~/Views/Shared/_HomeLayout.cshtml";
+    }
+    if (ViewBag.chg == 2)
+    {
+        Layout = "~/Views/Shared/NoRightLayout.cshtml";
+    }
+}
+
+<h2>createDisc</h2>
+@using (Html.BeginForm("createDis", "Home",new
+{
+    grid = ViewBag.GrId
+}, FormMethod.Post))
+{
+<table>
+    <tr>
+        <td>
+            @Html.LabelFor(d => d.Name, "Name:")
+        </td>
+        <td>
+            @Html.TextBoxFor(d => d.Name)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <input type="submit" value="Create" />
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.ValidationMessage("Error")
+        </td>
+    </tr>
+</table>
+}

@@ -1,0 +1,46 @@
+﻿@model ProjectPRO.ViewModels.RegisterViewModel
+@{
+    ViewBag.Title = "Register";
+    Layout= "~/Views/Shared/_StartLayout.cshtml";
+}
+
+<h2>Register</h2>
+@using (Html.BeginForm("Register"))
+{
+    <table>
+        <tr>
+            <td>
+                @Html.LabelFor(m => m.Email)
+            </td>
+            <td>
+                @Html.TextBoxFor(m => m.Email)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(m => m.Password)
+            </td>
+            <td>
+                @Html.TextBoxFor(m => m.Password)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(m => m.Name)
+            </td>
+            <td>
+                @Html.TextBoxFor(m => m.Name)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="submit" value="Submit" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.ValidationMessage("")
+            </td>
+        </tr>
+    </table>
+}

@@ -1,0 +1,32 @@
+﻿@model ProjectPRO.ViewModels.CreateGViewModel
+@{
+    ViewBag.Title = "CreateG";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+}
+
+<h2>CreateGroup</h2>
+@using (Html.BeginForm("cG", "Home", FormMethod.Post))
+{
+      <table>
+          <tr>
+              <td>
+                  @Html.LabelFor(m => m.NameOfGroup, "Name for the group:")
+              </td>
+              <td>
+                  @Html.TextBoxFor(m => Model.NameOfGroup)
+              </td>
+          </tr>
+          <tr>
+              <td>
+                  <input type="submit" value="Send" />
+              </td>
+          </tr>
+          <tr>
+              <td>
+                  @Html.ValidationMessage("Error")
+              </td>
+          </tr>
+      </table>
+}
+

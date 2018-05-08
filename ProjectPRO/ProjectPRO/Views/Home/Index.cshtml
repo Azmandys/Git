@@ -1,0 +1,25 @@
+﻿
+@{
+    if (ViewBag.chg == 1)
+    {
+        Layout = "~/Views/Shared/_HomeLayout.cshtml";
+    }
+    if (ViewBag.chg == 2)
+    {
+        Layout = "~/Views/Shared/NoRightLayout.cshtml";
+    }
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <div> 
+        Please select one of the options located at the top of the screen.
+    </div>
+</body>
+</html>
