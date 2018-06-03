@@ -1,0 +1,50 @@
+﻿@model ProjectPRO.ViewModels.LineViewModel
+@{
+    ViewBag.Title = "Line";
+    if (ViewBag.chg == 1)
+    {
+        Layout = "~/Views/Shared/_HomeLayout.cshtml";
+    }
+    if (ViewBag.chg == 2)
+    {
+        Layout = "~/Views/Shared/NoRightLayout.cshtml";
+    }
+}
+
+<h2>Line</h2>
+
+
+@if (Model.lines == null)
+{
+    <h3>Nothing currently in this discussion</h3>
+}
+
+
+
+@if (Model.lines != null)
+{
+    <h3>Discussion</h3>
+    <table>
+        <tr>
+            <th>Author</th>
+            <th>Line</th>
+        </tr>
+        @foreach (var item in Model.lines)
+        {
+            <tr>
+                <td>
+                    @item.author.Name
+                </td>
+                <td>
+                    @item.text
+                </td>
+            </tr>
+        }
+    </table>
+}
+@using (Html.BeginForm("addLine", "Discussion", new { did = ViewBag.DiscId }, FormMethod.Post))
+    {
+      @Html.TextBoxFor(m => m.crline)
+      <input type="submit" value="Add" />
+    }
+    @Html.ActionLink("Refresh", "Line",new { did = ViewBag.DiscLId })

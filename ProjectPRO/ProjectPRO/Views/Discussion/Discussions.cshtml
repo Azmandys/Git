@@ -1,0 +1,86 @@
+﻿@model ProjectPRO.ViewModels.DiscussionViewModel
+@{
+    ViewBag.Title = "Discussions";
+    if (ViewBag.chg == 1)
+    {
+        Layout = "~/Views/Shared/_HomeLayout.cshtml";
+    }
+    if (ViewBag.chg == 2)
+    {
+        Layout = "~/Views/Shared/NoRightLayout.cshtml";
+    }
+}
+
+<h2>Discussions</h2>
+
+@if (Model.groups !=null)
+{
+    <h3>Groups you are in</h3>
+    <table>
+        <tr>
+            <th></th>
+            <th>Id</th>
+            <th>Name</th>
+        </tr>
+
+
+        @foreach (var item in Model.groups)
+        {
+            string selectedRow = "";
+                if (item.gId ==ViewBag.GroupId)
+            {
+                selectedRow = "success";
+            }
+                <tr class="@selectedRow">
+                    <td>
+                        @Html.ActionLink("Select","Discussions", new { gid = item.gId})
+                    </td>
+                    <td>
+                        @item.gId
+                    </td>
+                    <td>
+                        @item.Name
+                    </td>
+                </tr>
+        }
+    </table>
+}
+
+@if (Model.discussions == null && ViewBag.DiscId==null)
+{
+    <h3>No Current discussions for this group.</h3>
+}
+@if (Model.discussions != null)
+{
+    <h3>Discussions available to you</h3>
+    <table>
+        <tr>
+            <th>Name</th>
+        </tr>
+        @foreach (var item in Model.discussions)
+        {
+            string selectedRow = "";
+            if (item.DiscId == ViewBag.DiscId)
+            {
+                selectedRow = "seccess";
+            }
+            <tr class="@selectedRow">
+                <td>
+                    @Html.ActionLink("Select ", "Discussions",new { did = item.DiscId})
+                </td>
+                <td>
+                    @item.Name
+                </td>
+            </tr>
+        }
+    </table>
+}
+@if (ViewBag.GroupId != null) { 
+    @Html.ActionLink("Create","createDisc","Discussion",new { gid = ViewBag.GroupId },null)
+    
+}
+@if (ViewBag.DiscId != null)
+    {
+    <h3>You have chosen - @ViewBag.DiscName - discussion, please choose you action</h3>
+@Html.ActionLink("Go to chosen discussion", "Line", new { did = ViewBag.DiscId })
+    }
