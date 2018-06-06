@@ -187,6 +187,10 @@
     <Compile Include="Migrations\201803280324543_addRight.Designer.cs">
       <DependentUpon>201803280324543_addRight.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201806061839142_resh.cs" />
+    <Compile Include="Migrations\201806061839142_resh.Designer.cs">
+      <DependentUpon>201806061839142_resh.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Discussion.cs" />
     <Compile Include="Models\File.cs" />
@@ -255,6 +259,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201803280324543_addRight.resx">
       <DependentUpon>201803280324543_addRight.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806061839142_resh.resx">
+      <DependentUpon>201806061839142_resh.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
