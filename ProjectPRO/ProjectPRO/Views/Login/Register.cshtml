@@ -5,12 +5,17 @@
 }
 
 <h2>Register</h2>
-@using (Html.BeginForm("Register"))
+@using (Html.BeginForm("Register","Login"))
 {
+    <div>
+        @Html.ValidationMessage("")
+    </div>
+
+
     <table>
         <tr>
             <td>
-                @Html.LabelFor(m => m.Email)
+                @Html.LabelFor(m => m.Email, "E-mail:")
             </td>
             <td>
                 @Html.TextBoxFor(m => m.Email)
@@ -18,7 +23,7 @@
         </tr>
         <tr>
             <td>
-                @Html.LabelFor(m => m.Password)
+                @Html.LabelFor(m => m.Password,"Password:")
             </td>
             <td>
                 @Html.PasswordFor(m => m.Password)
@@ -26,7 +31,7 @@
         </tr>
         <tr>
             <td>
-                @Html.LabelFor(m => m.Name)
+                @Html.LabelFor(m => m.Name,"Name:")
             </td>
             <td>
                 @Html.TextBoxFor(m => m.Name)
@@ -34,12 +39,7 @@
         </tr>
         <tr>
             <td>
-                <input type="submit" value="Submit" />
-            </td>
-        </tr>
-        <tr>
-            <td>
-                @Html.ValidationMessage("")
+                <input type="submit" value="Submit" class="btn"/>
             </td>
         </tr>
     </table>
