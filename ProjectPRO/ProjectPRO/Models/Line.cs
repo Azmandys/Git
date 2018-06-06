@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace ProjectPRO.Models
 {
@@ -10,9 +6,9 @@ namespace ProjectPRO.Models
     {
         [Key]
         public int LId { get; set; }
-        public string text { get; set; }
-        public ApplicationUser author { get; set; }
+        public string Text { get; set; }
+        public ApplicationUser Author { get; set; }
 
-        public Discussion disc { get; set; }
+        public Discussion Disc { get; set; }
     }
 }

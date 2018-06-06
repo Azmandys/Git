@@ -105,7 +105,7 @@ namespace ProjectPRO.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email , Name = model.Name , chgRight=false};
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email , Name = model.Name , ChgRight=false};
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {

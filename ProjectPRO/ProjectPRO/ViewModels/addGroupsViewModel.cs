@@ -1,13 +1,9 @@
-﻿using ProjectPRO.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 using System.Web.Mvc;
 
 namespace ProjectPRO.ViewModels
 {
-    public class addGroupsViewModel
+    public class AddGroupsViewModel
     {
         public string SelGroup { get; set; }
         public string SelUser { get; set; }

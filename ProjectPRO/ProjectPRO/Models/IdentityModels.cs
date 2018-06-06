@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
-using System.Collections;
 using System.Collections.Generic;
 using System.Data.Entity;
 
@@ -12,12 +11,12 @@ namespace ProjectPRO.Models
     {
         public string Name { get; set; }
 
-        public bool chgRight { get; set; }
-        public ICollection<Line> lines { get; set; }
+        public bool ChgRight { get; set; }
+        public ICollection<Line> Lines { get; set; }
 
-        public ICollection<File> files { get; set; }
+        public ICollection<File> Files { get; set; }
 
-        public virtual ICollection<GroupPerson> groups { get; set; } 
+        public virtual ICollection<GroupPerson> Groups { get; set; } 
         
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {

@@ -1,16 +1,11 @@
-﻿using ProjectPRO.Models;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using ProjectPRO.ViewModels;
-using ProjectPRO.Models;
-using System.Data.Entity;
 using Microsoft.AspNet.Identity;
-using System.Threading.Tasks;
 using Microsoft.AspNet.Identity.Owin;
-using System.Diagnostics;
+using ProjectPRO.Models;
+using ProjectPRO.ViewModels;
 
 namespace ProjectPRO.Controllers
 {
@@ -44,165 +39,155 @@ namespace ProjectPRO.Controllers
  
         public ActionResult Index()
         {
-            checkCR();
+            CheckCr();
             return View();
         }
 
-        public ActionResult addGroups()
+        public ActionResult AddGroups()
         {
-            checkCR();
+            CheckCr();
             if (ViewBag.chg == 2)
             {
                 return RedirectToAction("Index", "Home");
             }
-            else
-            {
-                IEnumerable < SelectListItem > slItem = from x in db.Groups
-                                                        select new SelectListItem
-                                                        {
-                                                            Selected = x.gId.ToString() == "Active",
-                                                            Value = x.gId.ToString(),
-                                                            Text = x.Name
-                                                        };
-                IEnumerable<SelectListItem> sluItem = from x in db.Users
-                                                      select new SelectListItem
-                                                      {
-                                                          Selected = x.Id.ToString() == "Active",
-                                                          Value = x.Id.ToString(),
-                                                          Text = x.Name
-                                                      };
-                var model = new addGroupsViewModel()
+
+            IEnumerable < SelectListItem > slItem = from x in db.Groups
+                select new SelectListItem
                 {
-                    Groups = slItem,
-                    Users = sluItem
+                    Selected = x.GId.ToString() == "Active",
+                    Value = x.GId.ToString(),
+                    Text = x.Name
                 };
+            IEnumerable<SelectListItem> sluItem = from x in db.Users
+                select new SelectListItem
+                {
+                    Selected = x.Id == "Active",
+                    Value = x.Id,
+                    Text = x.Name
+                };
+            var model = new AddGroupsViewModel
+            {
+                Groups = slItem,
+                Users = sluItem
+            };
 
 
 
-                return View(model);
-            }
+            return View(model);
         }
 
-        public ActionResult addGroupsParam()
+        public ActionResult AddGroupsParam()
         {
-            checkCR();
+            CheckCr();
             if (ViewBag.chg == 2)
             {
                 return RedirectToAction("Index", "Home");
             }
-            else
-            {
-                IEnumerable<SelectListItem> slItem = from x in db.Groups
-                                                     select new SelectListItem
-                                                     {
-                                                         Selected = x.gId.ToString() == "Active",
-                                                         Value = x.gId.ToString(),
-                                                         Text = x.Name
-                                                     };
-                IEnumerable<SelectListItem> sluItem = from x in db.Users
-                                                      select new SelectListItem
-                                                      {
-                                                          Selected = x.Id.ToString() == "Active",
-                                                          Value = x.Id.ToString(),
-                                                          Text = x.Name
-                                                      };
-                var model = new addGroupsViewModel()
+
+            IEnumerable<SelectListItem> slItem = from x in db.Groups
+                select new SelectListItem
                 {
-                    Groups = slItem,
-                    Users = sluItem
+                    Selected = x.GId.ToString() == "Active",
+                    Value = x.GId.ToString(),
+                    Text = x.Name
                 };
+            IEnumerable<SelectListItem> sluItem = from x in db.Users
+                select new SelectListItem
+                {
+                    Selected = x.Id == "Active",
+                    Value = x.Id,
+                    Text = x.Name
+                };
+            var model = new AddGroupsViewModel
+            {
+                Groups = slItem,
+                Users = sluItem
+            };
 
 
-                ModelState.AddModelError("Error", "This person is already in this group");
-                return View("addGroups",model);
-            }
+            ModelState.AddModelError("Error", @"This person is already in this group");
+            return View("addGroups",model);
         }
 
 
 
-        public  ActionResult addGr(addGroupsViewModel model)
+        public  ActionResult AddGr(AddGroupsViewModel model)
         {
             
             ApplicationUser user = db.Users.Where(u => u.Id == model.SelUser).Single();
             var gid = int.Parse(model.SelGroup);
-            Group addGr = db.Groups.Where(g => g.gId == gid).Single();
-            if (db.GroupPersons.Where(gg => gg.group.gId == addGr.gId && gg.user.Id == user.Id).SingleOrDefault() != null)
+            Group addGr = db.Groups.Where(g => g.GId == gid).Single();
+            if (db.GroupPersons.Where(gg => gg.Group.GId == addGr.GId && gg.User.Id == user.Id).SingleOrDefault() != null)
             { 
-                return RedirectToAction("addGroupsParam", "Home");
+                return RedirectToAction("AddGroupsParam", "Home");
             }
-            else
+
+            GroupPerson gp = new GroupPerson();
+            if (!db.GroupPersons.Any())
             {
-                GroupPerson gp = new GroupPerson();
-                if (!db.GroupPersons.Any())
-                {
-                    gp.gpid = 1;
-                }
-                if (db.GroupPersons.Any())
-                {
-                    gp.gpid = db.GroupPersons.Max(grp => grp.gpid) + 1;
-                }
-                gp.group = addGr;
-                gp.user = user;
-                gp.role = model.Role;
-                user.groups.Add(gp);
-                addGr.users.Add(gp);
-                db.Users.Attach(user);
-                db.Groups.Attach(addGr);
-                db.GroupPersons.Add(gp);
-                db.SaveChanges();
-                return RedirectToAction("Index", "Home");
+                gp.Gpid = 1;
             }
+            if (db.GroupPersons.Any())
+            {
+                gp.Gpid = db.GroupPersons.Max(grp => grp.Gpid) + 1;
+            }
+            gp.Group = addGr;
+            gp.User = user;
+            gp.Role = model.Role;
+            user.Groups.Add(gp);
+            addGr.Users.Add(gp);
+            db.Users.Attach(user);
+            db.Groups.Attach(addGr);
+            db.GroupPersons.Add(gp);
+            db.SaveChanges();
+            return RedirectToAction("Index", "Home");
         }
 
         public ActionResult CreateG()
         {
-            checkCR();
+            CheckCr();
             if (ViewBag.chg == 2)
             {
                 return RedirectToAction("Index", "Home");
             }
-            else
-            {
-                var model = new CreateGViewModel();
-                return View(model);
-            }
+
+            var model = new CreateGViewModel();
+            return View(model);
         }
 
-        public ActionResult cG(CreateGViewModel model)
+        public ActionResult Cg(CreateGViewModel model)
         {
             if (db.Groups.Where(g => g.Name == model.NameOfGroup).SingleOrDefault() != null)
             {
-                ModelState.AddModelError("Error", "This name is already occupied please think of another one");
+                ModelState.AddModelError("Error", @"This name is already occupied please think of another one");
                 return View("CreateG",model);
                 
             }
+
+            Group nGroup = new Group();
+            if (!db.Groups.Any())
+            {
+                nGroup.GId = 1;
+            }
             else
             {
-                Group nGroup = new Group();
-                if (!db.Groups.Any())
-                {
-                    nGroup.gId = 1;
-                }
-                else
-                {
-                    nGroup.gId = db.Groups.Max(g => g.gId) + 1;
-                }
-                nGroup.Name = model.NameOfGroup;
-                db.Groups.Add(nGroup);
-                db.SaveChanges();
-                return RedirectToAction("Index", "Home");
+                nGroup.GId = db.Groups.Max(g => g.GId) + 1;
             }
+            nGroup.Name = model.NameOfGroup;
+            db.Groups.Add(nGroup);
+            db.SaveChanges();
+            return RedirectToAction("Index", "Home");
         }
 
 
-        public void checkCR()
+        public void CheckCr()
         {
             var user = db.Users.Find(User.Identity.GetUserId());
-            if (user.chgRight == true)
+            if (user.ChgRight)
             {
                 ViewBag.chg = 1;
             }
-            if (user.chgRight==false)
+            if (user.ChgRight==false)
             {
                 ViewBag.chg = 2;
             }

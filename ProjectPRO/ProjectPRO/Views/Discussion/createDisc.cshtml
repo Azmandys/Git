@@ -1,4 +1,4 @@
-﻿@model ProjectPRO.ViewModels.createDiscViewModel
+﻿@model ProjectPRO.ViewModels.CreateDiscViewModel
 @{
     ViewBag.Title = "createDisc";
     if (ViewBag.chg == 1)
@@ -12,7 +12,7 @@
 }
 
 <h2>createDisc</h2>
-@using (Html.BeginForm("createDis", "Discussion",new
+@using (Html.BeginForm("CreateDis", "Discussion",new
 {
     grid = ViewBag.GrId
 }, FormMethod.Post))

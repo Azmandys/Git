@@ -13,7 +13,7 @@
 
 <h2>Discussions</h2>
 
-@if (Model.groups !=null)
+@if (Model.Groups !=null)
 {
     <h3>Groups you are in</h3>
     <table>
@@ -24,19 +24,19 @@
         </tr>
 
 
-        @foreach (var item in Model.groups)
+        @foreach (var item in Model.Groups)
         {
             string selectedRow = "";
-                if (item.gId ==ViewBag.GroupId)
+                if (item.GId ==ViewBag.GroupId)
             {
                 selectedRow = "success";
             }
                 <tr class="@selectedRow">
                     <td>
-                        @Html.ActionLink("Select","Discussions", new { gid = item.gId})
+                        @Html.ActionLink("Select","Discussions", new { gid = item.GId})
                     </td>
                     <td>
-                        @item.gId
+                        @item.GId
                     </td>
                     <td>
                         @item.Name
@@ -46,18 +46,18 @@
     </table>
 }
 
-@if (Model.discussions == null && ViewBag.DiscId==null)
+@if (Model.Discussions == null && ViewBag.DiscId==null)
 {
     <h3>No Current discussions for this group.</h3>
 }
-@if (Model.discussions != null)
+@if (Model.Discussions != null)
 {
     <h3>Discussions available to you</h3>
     <table>
         <tr>
             <th>Name</th>
         </tr>
-        @foreach (var item in Model.discussions)
+        @foreach (var item in Model.Discussions)
         {
             string selectedRow = "";
             if (item.DiscId == ViewBag.DiscId)
@@ -75,9 +75,8 @@
         }
     </table>
 }
-@if (ViewBag.GroupId != null) { 
-    @Html.ActionLink("Create","createDisc","Discussion",new { gid = ViewBag.GroupId },null)
-    
+@if (ViewBag.GroupId != null) {
+    @Html.ActionLink("Create","CreateDisc","Discussion",new { gid = ViewBag.GroupId },null)
 }
 @if (ViewBag.DiscId != null)
     {

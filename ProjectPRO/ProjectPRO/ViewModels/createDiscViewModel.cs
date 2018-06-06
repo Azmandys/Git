@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace ProjectPRO.ViewModels
+﻿namespace ProjectPRO.ViewModels
 {
-    public class createDiscViewModel
+    public class CreateDiscViewModel
     {
 
         public string Name { get; set; }

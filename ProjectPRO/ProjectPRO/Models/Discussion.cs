@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
 
 namespace ProjectPRO.Models
 {
@@ -11,8 +8,8 @@ namespace ProjectPRO.Models
         [Key]
         public int DiscId { get; set; }
         public string Name { get; set; }
-        public Group group { get; set; }
+        public Group Group { get; set; }
 
-        public ICollection<Line> lines { get; set; }
+        public ICollection<Line> Lines { get; set; }
     }
 }

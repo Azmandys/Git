@@ -1,16 +1,12 @@
 ﻿using ProjectPRO.Models;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using ProjectPRO.ViewModels;
-using ProjectPRO.Models;
 using System.Data.Entity;
 using Microsoft.AspNet.Identity;
-using System.Threading.Tasks;
 using Microsoft.AspNet.Identity.Owin;
-using System.Diagnostics;
 
 namespace ProjectPRO.Controllers
 {
@@ -43,30 +39,30 @@ namespace ProjectPRO.Controllers
         }
         public ActionResult Files(int? gid, int? did)
         {
-            checkCR();
+            CheckCr();
             var uid = User.Identity.GetUserId();
             var viewModel = new FilesViewModel();
-            viewModel.gp = db.GroupPersons
-                .Include(i => i.group)
-                .Include(i => i.user);
+            viewModel.Gp = db.GroupPersons
+                .Include(i => i.Group)
+                .Include(i => i.User);
 
             ViewBag.UserId = uid;
 
-            List<GroupPerson> gpr = viewModel.gp.Where(u => u.user.Id == uid).ToList();
+            List<GroupPerson> gpr = viewModel.Gp.Where(u => u.User.Id == uid).ToList();
             List<Group> gro = new List<Group>();
             for (var i = 0; i < gpr.Count; i++)
-                gro.Add(gpr[i].group);
-            viewModel.groups = gro;
+                gro.Add(gpr[i].Group);
+            viewModel.Groups = gro;
             //ask about connection IMPORTANT!!!!!! viewModel.groups
             //var userProfiles = _dataContext.UserProfile
             // .Where(t => idList.Contains(t.Id));
 
             if (gid != null)
             {
-                List<File> fil = new List<File>();
-                fil = db.Files.Where(f => f.group.gId == gid).ToList();
+                List<File> fil;
+                fil = db.Files.Where(f => f.Group.GId == gid).ToList();
                 ViewBag.GroupId = gid;
-                viewModel.file = fil;
+                viewModel.File = fil;
             }
             return View(viewModel);
         }
@@ -81,9 +77,9 @@ namespace ProjectPRO.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (db.Files.Where(fg => fg.name == model.name).SingleOrDefault() != null)
+                if (db.Files.Where(fg => fg.Name == model.Name).SingleOrDefault() != null)
                 {
-                    ModelState.AddModelError("Error", "This name is already occupied please think of another one");
+                    ModelState.AddModelError("Error", @"This name is already occupied please think of another one");
                     return View("AddFile", model);
 
                 }
@@ -99,20 +95,20 @@ namespace ProjectPRO.Controllers
                     file.Fid = db.Files.Max(f => f.Fid) + 1;
                 }
                 file.Author = auth;
-                Group gr = db.Groups.Where(g => g.gId == gro).Single();
-                file.group = gr;
-                file.name = model.name;
-                file.link = model.link;
-                if (gr.files == null)
+                Group gr = db.Groups.Where(g => g.GId == gro).Single();
+                file.Group = gr;
+                file.Name = model.Name;
+                file.Link = model.Link;
+                if (gr.Files == null)
                 {
-                    gr.files = new List<File>();
+                    gr.Files = new List<File>();
                 }
-                gr.files.Add(file);
-                if (auth.files == null)
+                gr.Files.Add(file);
+                if (auth.Files == null)
                 {
-                    auth.files = new List<File>();
+                    auth.Files = new List<File>();
                 }
-                auth.files.Add(file);
+                auth.Files.Add(file);
                 db.Files.Add(file);
                 db.Entry(gr).State = EntityState.Modified;
                 db.Entry(auth).State = EntityState.Modified;
@@ -121,14 +117,14 @@ namespace ProjectPRO.Controllers
             }
             return View(model);
         }
-        public void checkCR()
+        public void CheckCr()
         {
             var user = db.Users.Find(User.Identity.GetUserId());
-            if (user.chgRight == true)
+            if (user.ChgRight)
             {
                 ViewBag.chg = 1;
             }
-            if (user.chgRight == false)
+            if (user.ChgRight == false)
             {
                 ViewBag.chg = 2;
             }

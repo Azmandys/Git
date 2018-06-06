@@ -13,7 +13,7 @@
 
 <h2>Files</h2>
 
-@if (Model.groups != null)
+@if (Model.Groups != null)
 {
     <h3>Groups you are in</h3>
     <table>
@@ -24,19 +24,19 @@
         </tr>
 
 
-        @foreach (var item in Model.groups)
+        @foreach (var item in Model.Groups)
         {
             string selectedRow = "";
-            if (item.gId == ViewBag.GroupId)
+            if (item.GId == ViewBag.GroupId)
             {
                 selectedRow = "success";
             }
             <tr class="@selectedRow">
                 <td>
-                    @Html.ActionLink("Select", "Files", new { gid = item.gId })
+                    @Html.ActionLink("Select", "Files", new { gid = item.GId })
                 </td>
                 <td>
-                    @item.gId
+                    @item.GId
                 </td>
                 <td>
                     @item.Name
@@ -45,12 +45,12 @@
         }
     </table>
 }
-@if (Model.file == null)
+@if (Model.File == null)
 {
     <h3>No Current files for this group.</h3>
     @Html.ActionLink("Add new file", "AddFile", new { gid = ViewBag.GroupId })
 }
-@if (Model.file != null)
+@if (Model.File != null)
 {
     <h3>Files available to you</h3>
     <table>
@@ -58,14 +58,14 @@
             <th>Author</th>
             <th>File</th>
         </tr>
-        @foreach (var item in Model.file)
+        @foreach (var item in Model.File)
         {
             <tr>
                 <td>
                     @item.Author.Name
                 </td>
                 <td>
-                    <a href="@string.Format("{0}", item.link)"> @item.name </a>
+                    <a href="@string.Format("{0}", item.Link)"> @item.Name </a>
                 </td>
             </tr>
         }

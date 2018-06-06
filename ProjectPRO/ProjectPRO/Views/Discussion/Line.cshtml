@@ -14,14 +14,14 @@
 <h2>Line</h2>
 
 
-@if (Model.lines == null)
+@if (Model.Lines == null)
 {
     <h3>Nothing currently in this discussion</h3>
 }
 
 
 
-@if (Model.lines != null)
+@if (Model.Lines != null)
 {
     <h3>Discussion</h3>
     <table>
@@ -29,22 +29,22 @@
             <th>Author</th>
             <th>Line</th>
         </tr>
-        @foreach (var item in Model.lines)
+        @foreach (var item in Model.Lines)
         {
             <tr>
                 <td>
-                    @item.author.Name
+                    @item.Author.Name
                 </td>
                 <td>
-                    @item.text
+                    @item.Text
                 </td>
             </tr>
         }
     </table>
 }
-@using (Html.BeginForm("addLine", "Discussion", new { did = ViewBag.DiscId }, FormMethod.Post))
+@using (Html.BeginForm("AddLine", "Discussion", new { did = ViewBag.DiscId }, FormMethod.Post))
     {
-      @Html.TextBoxFor(m => m.crline)
+      @Html.TextBoxFor(m => m.Crline)
       <input type="submit" value="Add" />
     }
     @Html.ActionLink("Refresh", "Line",new { did = ViewBag.DiscLId })
