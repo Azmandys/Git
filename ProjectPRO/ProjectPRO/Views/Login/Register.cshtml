@@ -3,44 +3,46 @@
     ViewBag.Title = "Register";
     Layout= "~/Views/Shared/_StartLayout.cshtml";
 }
-
-<h2>Register</h2>
+<div class="container">
+    <h2>Register</h2>
+</div>
 @using (Html.BeginForm("Register","Login"))
 {
-    <div>
+    <div class="container">
         @Html.ValidationMessage("")
     </div>
 
-
-    <table>
-        <tr>
-            <td>
-                @Html.LabelFor(m => m.Email, "E-mail:")
-            </td>
-            <td>
-                @Html.TextBoxFor(m => m.Email)
-            </td>
-        </tr>
-        <tr>
-            <td>
-                @Html.LabelFor(m => m.Password,"Password:")
-            </td>
-            <td>
-                @Html.PasswordFor(m => m.Password)
-            </td>
-        </tr>
-        <tr>
-            <td>
-                @Html.LabelFor(m => m.Name,"Name:")
-            </td>
-            <td>
-                @Html.TextBoxFor(m => m.Name)
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <input type="submit" value="Submit" class="btn"/>
-            </td>
-        </tr>
-    </table>
+    <div class="container">
+        <table>
+            <tr>
+                <td>
+                    @Html.LabelFor(m => m.Email, "E-mail:")
+                </td>
+                <td>
+                    @Html.TextBoxFor(m => m.Email)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(m => m.Password, "Password:")
+                </td>
+                <td>
+                    @Html.PasswordFor(m => m.Password)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(m => m.Name, "Name:")
+                </td>
+                <td>
+                    @Html.TextBoxFor(m => m.Name)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="submit" value="Submit" class="btn" />
+                </td>
+            </tr>
+        </table>
+    </div>
 }

@@ -3,50 +3,52 @@
     ViewBag.Title = "Login";
     Layout= "~/Views/Shared/_StartLayout.cshtml";
 }
-
-<h2>Login</h2>
+<div class="container">
+    <h2>Login</h2>
+</div>
 @using (Html.BeginForm("Index", "Login", new {ViewBag.ReturnUrl }, FormMethod.Post))
 {
     @Html.AntiForgeryToken()
 
-    <div id="login-error">
+    <div id="login-error" class="container">
         @Html.ValidationMessage("loginerror", "")
     </div>
 
-    <table id="login-table">
-        <tr>
-            <td>
-                @Html.LabelFor(o => o.Email, "E-mail:")
-            </td>
-            <td>
-                @Html.TextBoxFor(o => o.Email)
-                <br />
-                @Html.ValidationMessageFor(o => o.Email)
-            </td>
-        </tr>
-        <tr>
-            <td>
-                @Html.LabelFor(o => o.Password, "Password:")
-            </td>
-            <td>
-                @Html.PasswordFor(o => o.Password)
-                <br />
-                @Html.ValidationMessageFor(o => o.Password)
-            </td>
-        </tr>
-        <tr>
-            <td>
-                @Html.CheckBoxFor(o => o.RememberMe)
-                <br />
-                @Html.LabelFor(o => o.RememberMe)
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <input type="submit" value="Send" class="btn" />
-            </td>
-        </tr>
-    </table>
+    <div class="container">
+        <table id="login-table">
+            <tr>
+                <td>
+                    @Html.LabelFor(o => o.Email, "E-mail:")
+                </td>
+                <td>
+                    @Html.TextBoxFor(o => o.Email)
+                    <br />
+                    @Html.ValidationMessageFor(o => o.Email)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(o => o.Password, "Password:")
+                </td>
+                <td>
+                    @Html.PasswordFor(o => o.Password)
+                    <br />
+                    @Html.ValidationMessageFor(o => o.Password)
+                </td>
+            </tr>
+            <tr>
+                <td>                   
+                    @Html.CheckBoxFor(o => o.RememberMe, new {@type = "checkbox"})
+                    <br />
+                    @Html.LabelFor(o => o.RememberMe, new {@class = "label-icon"})
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="submit" value="Send" class="btn" />
+                </td>
+            </tr>
+        </table>
+    </div>
 
 }
-
