@@ -38,9 +38,12 @@
             </tr>
             <tr>
                 <td>                   
-                    @Html.CheckBoxFor(o => o.RememberMe, new {@type = "checkbox"})
-                    <br />
-                    @Html.LabelFor(o => o.RememberMe, new {@class = "label-icon"})
+                    <p>
+                        <label>
+                            <input type="checkbox" id="RememberMe" name="RememberMe"/>
+                            <span>Remember Me</span>
+                        </label>
+                    </p>
                 </td>
             </tr>
             <tr>
