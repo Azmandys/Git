@@ -1,0 +1,98 @@
+﻿@model ProjectPRO.ViewModels.ProfilePageViewModel
+@{
+    ViewBag.Title = "ProfilePage";
+    if (ViewBag.chg == 1)
+    {
+        Layout = "~/Views/Shared/_HomeLayout.cshtml";
+    }
+    if (ViewBag.chg == 2)
+    {
+        Layout = "~/Views/Shared/NoRightLayout.cshtml";
+    }
+}
+<div class="container" style="overflow:auto;height:500px">
+    <img src="~/Images/ouro.jpg" alt="Avatar" class="avatar" style="vertical-align:middle;width: 150px;height:150px;border-radius:50%;display:block;margin-left:auto;margin-right:auto" />
+
+<table>
+    <tr>
+        <td>
+            @Html.LabelFor(m => m.NameUs,"Name:")
+        </td>
+        <td>
+            @Html.TextBoxFor(m =>m.NameUs,new {@readonly="readonly" })
+        </td>
+    </tr>
+    <tr>
+        <td>
+             @Html.LabelFor(m =>m.IndexNumber,"Index Number:")
+        </td>
+        <td>
+            @Html.TextBoxFor(m =>m.IndexNumber, new { @readonly = "readonly" })
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.LabelFor(m => m.Specialization, "Specialization:")
+        </td>
+        <td>
+            @Html.TextBoxFor(m => m.Specialization, new { @readonly = "readonly" })
+        </td>
+    </tr>
+</table>
+    <h2 style="text-align:center">Recent Activity</h2>
+<table style="border:solid">
+    <tr>
+        <th style="text-align:center">Type</th>
+        <th style="text-align:center">Name</th>
+        <th style="text-align:center">Date</th>
+    </tr>
+
+    @foreach (var item in Model.NewDiscussions)
+    {
+    <tr>
+        <td style="text-align:center">
+            Discussion
+        </td>
+        <td style="text-align:center">
+            @item.Name
+        </td>
+        <td style="text-align:center">
+            @item.Created
+        </td>
+    </tr>
+    }
+    @foreach (var item in Model.NewFiles)
+    {
+        <tr>
+            <td style="text-align:center">
+                File
+            </td>
+            <td style="text-align:center">
+                @item.Name
+            </td>
+            <td style="text-align:center">
+                @item.Created
+            </td>
+        </tr>
+    }
+</table>
+    <h2 style="text-align:center">Groups you are in</h2>
+<table style="border:solid">
+    <tr>
+        <th style="text-align:center">Name</th>
+        <th style="text-align:center">Main advisor</th>
+    </tr>
+    
+     @foreach (var item in Model.AdvGp)
+     {
+         <tr>
+             <td style="text-align:center">
+                  @item.Group.Name
+             </td>
+             <td style="text-align:center">
+                  @item.User.Name
+             </td>
+         </tr>
+     }
+</table>
+</div>

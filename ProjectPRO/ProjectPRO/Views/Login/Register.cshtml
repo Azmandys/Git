@@ -12,7 +12,7 @@
         @Html.ValidationMessage("")
     </div>
 
-    <div class="container">
+    <div class="container" style="max-height:350px;overflow-y:scroll">
         <table>
             <tr>
                 <td>
@@ -36,6 +36,22 @@
                 </td>
                 <td>
                     @Html.TextBoxFor(m => m.Name)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(m => m.IndexNumber, "Index:")
+                </td>
+                <td>
+                    @Html.TextBoxFor(m => m.IndexNumber)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(m => m.Specialization, "Specialization:")
+                </td>
+                <td>
+                    @Html.TextBoxFor(m => m.Specialization)
                 </td>
             </tr>
             <tr>

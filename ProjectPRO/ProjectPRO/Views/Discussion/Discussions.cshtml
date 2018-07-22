@@ -46,7 +46,7 @@
     </table>
 }
 
-@if (Model.Discussions == null && ViewBag.DiscId==null)
+@if (Model.Discussions == null && ViewBag.DiscId==null && ViewBag.GroupId != null)
 {
     <h3>No Current discussions for this group.</h3>
 }

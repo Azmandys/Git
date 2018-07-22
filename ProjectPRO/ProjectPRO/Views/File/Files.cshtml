@@ -45,7 +45,7 @@
         }
     </table>
 }
-@if (Model.File == null)
+@if (Model.File == null && ViewBag.GroupId != null)
 {
     <h3>No Current files for this group.</h3>
     @Html.ActionLink("Add new file", "AddFile", new { gid = ViewBag.GroupId })

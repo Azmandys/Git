@@ -7,6 +7,7 @@ using ProjectPRO.ViewModels;
 using System.Data.Entity;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
+using System;
 
 namespace ProjectPRO.Controllers
 {
@@ -99,6 +100,7 @@ namespace ProjectPRO.Controllers
                 file.Group = gr;
                 file.Name = model.Name;
                 file.Link = model.Link;
+                file.Created = DateTime.Now;
                 if (gr.Files == null)
                 {
                     gr.Files = new List<File>();

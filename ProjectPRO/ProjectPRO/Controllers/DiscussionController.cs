@@ -7,6 +7,7 @@ using ProjectPRO.ViewModels;
 using System.Data.Entity;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
+using System;
 
 namespace ProjectPRO.Controllers
 {
@@ -100,6 +101,7 @@ namespace ProjectPRO.Controllers
                 }
 
                 var discussion = new Discussion();
+                discussion.Created = DateTime.Now;
                 if (!db.Discussions.Any())
                 {
                     discussion.DiscId = 1;
@@ -111,6 +113,8 @@ namespace ProjectPRO.Controllers
                 discussion.Name = model.Name;
                 Group grp = db.Groups.Find(grid);
                 discussion.Group = grp;
+                var userid = User.Identity.GetUserId();
+                discussion.Creator = db.Users.Where(c => c.Id == userid).Single();
                 if (grp != null && grp.Discussions == null)
                 {
                     grp.Discussions = new List<Discussion>();
@@ -143,6 +147,7 @@ namespace ProjectPRO.Controllers
             line.LId = maxId + 1;
             line.Author = auth;
             line.Disc = dis;
+            line.Created = DateTime.Now;
             db.Lines.Add(line);
             db.SaveChanges();
 

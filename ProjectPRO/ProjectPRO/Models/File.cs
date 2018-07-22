@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace ProjectPRO.Models
 {
@@ -14,5 +15,7 @@ namespace ProjectPRO.Models
         public virtual ApplicationUser Author { get; set; }
 
         public virtual Group Group { get; set; }
+
+        public DateTime Created { get; set; }
     }
 }

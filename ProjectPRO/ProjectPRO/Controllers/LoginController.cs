@@ -74,7 +74,7 @@ namespace ProjectPRO.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("ProfilePage", "Home");
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
@@ -111,7 +111,7 @@ namespace ProjectPRO.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    var user = new ApplicationUser { UserName = model.Email, Email = model.Email, Name = model.Name, ChgRight = false };
+                    var user = new ApplicationUser { UserName = model.Email, Email = model.Email, Name = model.Name, IndexNumber=model.IndexNumber,Specialization=model.Specialization, ChgRight = false };
                     var result = await UserManager.CreateAsync(user, model.Password);
                     if (result.Succeeded)
                     {

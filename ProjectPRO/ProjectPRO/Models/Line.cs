@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace ProjectPRO.Models
 {
@@ -10,5 +11,7 @@ namespace ProjectPRO.Models
         public ApplicationUser Author { get; set; }
 
         public Discussion Disc { get; set; }
+
+        public DateTime Created { get; set; }
     }
 }

@@ -6,6 +6,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using ProjectPRO.Models;
 using ProjectPRO.ViewModels;
+using System.Data.Entity;
+using System;
 
 namespace ProjectPRO.Controllers
 {
@@ -41,6 +43,59 @@ namespace ProjectPRO.Controllers
         {
             CheckCr();
             return View();
+        }
+
+        public ActionResult ProfilePage()
+        {
+            CheckCr();
+            var uid = User.Identity.GetUserId();
+            var viewModel = new ProfilePageViewModel();
+            var userda = db.Users.Where(y => y.Id == uid).Single();
+            viewModel.NameUs = userda.Name;
+            viewModel.IndexNumber = userda.IndexNumber;
+            viewModel.Specialization = userda.Specialization;
+
+            viewModel.Gp = db.GroupPersons
+                .Include(i => i.Group)
+                .Include(i => i.User);
+
+            ViewBag.UserId = uid;
+
+            List<GroupPerson> gpr = viewModel.Gp.Where(u => u.User.Id == uid).ToList();
+            List<Group> gro = new List<Group>();           
+            for (var i = 0; i < gpr.Count; i++)
+                gro.Add(gpr[i].Group);
+            viewModel.Groups = gro;
+            List<GroupPerson> adgp = viewModel.Gp.Where(g => g.Role == "Main Advisor").ToList();
+            List<GroupPerson> advgp = new List<GroupPerson>();
+            for (var j = 0; j < gro.Count; j++)
+            {
+                for (var t = 0; t < adgp.Count; t++)
+                {
+                    if (adgp[t].Group == gro[j])
+                        advgp.Add(adgp[t]);
+                }
+            }
+            viewModel.AdvGp = advgp;
+            List<Discussion> dis = db.Discussions.Where(d => d.Creator.Id == userda.Id).ToList();
+            List<File> fil = db.Files.Where(f => f.Author.Id == userda.Id).ToList();
+            DateTime compar = DateTime.Now;
+            compar = compar.AddDays(-7);
+            List<Discussion> finalDis = new List<Discussion>();
+            List<File> finalFile = new List<File>();
+            for (var it = 0; it < dis.Count; it++)
+            {
+                if (dis[it].Created > compar)
+                    finalDis.Add(dis[it]);
+            }
+            for (var jt = 0; jt < dis.Count; jt++)
+            {
+                if (dis[jt].Created > compar)
+                    finalDis.Add(dis[jt]);
+            }
+            viewModel.NewDiscussions = finalDis;
+            viewModel.NewFiles = finalFile;
+            return View(viewModel);
         }
 
         public ActionResult AddGroups()

@@ -9,27 +9,27 @@
 {
     <table>
         <tr>
-            <td>
+            <td style="width:60px">
                 @Html.LabelFor(m => m.SelGroup,"Group:")
             </td>
-            <td>
-                @Html.DropDownListFor(m => Model.SelGroup,Model.Groups)
+            <td style="width:200px">
+                @Html.DropDownListFor(m => Model.SelGroup,Model.Groups, new { @class = "left-align" } )
             </td>
         </tr>
         <tr>
-            <td>
+            <td style="width:60px">
                 @Html.LabelFor(m => m.SelUser, "User:")
             </td>
-            <td>
-                @Html.DropDownListFor(m => Model.SelUser,Model.Users)
+            <td style="width:200px">
+                @Html.DropDownListFor(m => Model.SelUser,Model.Users, new { @class = "dropdown - content" })
             </td>
         </tr>
         <tr>
-            <td>
+            <td style="width:60px">
                 @Html.LabelFor(m => m.Role, "Role")
             </td>
-            <td>
-                @Html.DropDownListFor(m => Model.Role,new SelectList(new [] { "Teacher", "Student"}),"Select Role")
+            <td style="width:200px">
+                @Html.DropDownListFor(m => Model.Role,new SelectList(new [] { "Teacher", "Student","Main Advisor"}),"Select Role", new { @class = "dropdown - content" })
             </td>
         </tr>
         <tr>

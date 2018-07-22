@@ -145,8 +145,6 @@
   <ItemGroup>
     <Content Include="Content\materialize.css" />
     <Content Include="Content\materialize.min.css" />
-    <Content Include="Content\Site.css" />
-    <Content Include="Content\style.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <None Include="Properties\Settings.settings">
@@ -154,6 +152,7 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
+    <Content Include="Images\ouro.jpg" />
     <Content Include="Scripts\jquery-3.1.1.js" />
     <Content Include="Scripts\jquery-3.1.1.min.js" />
     <Content Include="Scripts\jquery-3.1.1.slim.js" />
@@ -192,6 +191,14 @@
     <Compile Include="Migrations\201806061839142_resh.Designer.cs">
       <DependentUpon>201806061839142_resh.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201807210535206_profile.cs" />
+    <Compile Include="Migrations\201807210535206_profile.Designer.cs">
+      <DependentUpon>201807210535206_profile.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201807220128308_discAuth.cs" />
+    <Compile Include="Migrations\201807220128308_discAuth.Designer.cs">
+      <DependentUpon>201807220128308_discAuth.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Discussion.cs" />
     <Compile Include="Models\File.cs" />
@@ -215,6 +222,7 @@
     <Compile Include="ViewModels\FilesViewModel.cs" />
     <Compile Include="ViewModels\LineViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
+    <Compile Include="ViewModels\ProfilePageViewModel.cs" />
     <Compile Include="ViewModels\RegisterViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -241,6 +249,7 @@
     <Content Include="Views\Shared\NoRightLayout.cshtml" />
     <Content Include="Views\Home\CreateG.cshtml" />
     <Content Include="Views\File\AddFile.cshtml" />
+    <Content Include="Views\Home\ProfilePage.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -263,6 +272,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201806061839142_resh.resx">
       <DependentUpon>201806061839142_resh.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807210535206_profile.resx">
+      <DependentUpon>201807210535206_profile.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807220128308_discAuth.resx">
+      <DependentUpon>201807220128308_discAuth.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

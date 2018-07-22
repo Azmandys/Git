@@ -11,6 +11,10 @@ namespace ProjectPRO.Models
     {
         public string Name { get; set; }
 
+        public string IndexNumber { get; set; }
+
+        public string Specialization { get; set; }
+
         public bool ChgRight { get; set; }
         public ICollection<Line> Lines { get; set; }
 
