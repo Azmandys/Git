@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html>
+<html style="height:100vh">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,7 +8,7 @@
     <link href="/Content/materialize.min.css" rel="stylesheet" type="text/css" />
     <script src="/Scripts/modernizr-2.8.3.js"></script>
 </head>
-<body>
+<body style="height:100vh;width:100vw">
 <nav>
     <ul class="left hide-on-med-and-down">
         <li>@Html.ActionLink("Login", "Index", "Login")</li>
@@ -16,7 +16,7 @@
     </ul>
 </nav>
 
-<div class="parallax-container">
+<div class="parallax-container" style="height:80vh;width:100vw">
         @RenderBody()
         <footer class="page-footer">
             <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>

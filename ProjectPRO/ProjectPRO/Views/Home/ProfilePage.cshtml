@@ -10,78 +10,65 @@
         Layout = "~/Views/Shared/NoRightLayout.cshtml";
     }
 }
-<link rel="stylesheet" href="~/Content/No_Scrollbar.css" />
-<div class="container" style="overflow:auto;height:500px">
-    <img src="~/Images/avatar.png" alt="Avatar" class="avatar" style="vertical-align:middle;width: 150px;height:150px;border-radius:50%;display:block;margin-left:auto;margin-right:auto;margin-top:20px" />
 
-<table>
-    <tr>
-        <td>
-            @Html.LabelFor(m => m.NameUs,"Name:")
-        </td>
-        <td>
-            @Html.TextBoxFor(m =>m.NameUs,new {@readonly="readonly" })
-        </td>
-    </tr>
-    <tr>
-        <td>
-             @Html.LabelFor(m =>m.IndexNumber,"Index Number:")
-        </td>
-        <td>
-            @Html.TextBoxFor(m =>m.IndexNumber, new { @readonly = "readonly" })
-        </td>
-    </tr>
-    <tr>
-        <td>
-            @Html.LabelFor(m => m.Specialization, "Specialization:")
-        </td>
-        <td>
-            @Html.TextBoxFor(m => m.Specialization, new { @readonly = "readonly" })
-        </td>
-    </tr>
-</table>
-    <h2 style="text-align:center">Recent Activity</h2>
-<table style="border:solid">
-    <tr>
-        <th style="text-align:center">Type</th>
-        <th style="text-align:center">Name</th>
-        <th style="text-align:center">Date</th>
-    </tr>
+<div class="container" style="height:80vh">
+    <img src="~/Images/avatar.png" alt="Avatar" class="avatar" style="vertical-align:middle;width: 10vh;height:10vh;border-radius:50%;display:block;margin-left:auto;margin-right:auto;margin-top:20px" />
+    <div style="height:10vh;text-align:center;font-size:2vh">
+            Name: @Model.NameUs <br />
+            Index Number: @Model.IndexNumber <br />
+            Specialization: @Model.Specialization <br />
+    </div>
 
-    @foreach (var item in Model.NewDiscussions)
-    {
-    <tr>
-        <td style="text-align:center">
-            Discussion
-        </td>
-        <td style="text-align:center">
-            @item.Name
-        </td>
-        <td style="text-align:center">
-            @item.Created
-        </td>
-    </tr>
-    }
-    @foreach (var item in Model.NewFiles)
-    {
-        <tr>
-            <td style="text-align:center">
-                File
-            </td>
-            <td style="text-align:center">
-                @item.Name
-            </td>
-            <td style="text-align:center">
-                @item.Created
-            </td>
-        </tr>
-    }
-</table>
-    <h2>
-        <button type="button" class="btn">Connect</button>
-        <button type="button" class="btn">Create</button>
+
+    <h2 style="text-align:center;height:3vh;font-size:3vh">Recent Activity</h2>
+    <div style="height:15vh;overflow:auto">
+        <table style="border:solid">
+            <thead>
+            <tr>
+                <th style="text-align:center">Type</th>
+                <th style="text-align:center">Name</th>
+                <th style="text-align:center">Date</th>
+            </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.NewDiscussions)
+            {
+                    <tr>
+                        <td style="text-align:center">
+                            Discussion
+                        </td>
+                        <td style="text-align:center">
+                            @item.Name
+                        </td>
+                        <td style="text-align:center">
+                            @item.Created
+                        </td>
+                    </tr>
+                }
+                @foreach (var item in Model.NewFiles)
+            {
+                    <tr>
+                        <td style="text-align:center">
+                            File
+                        </td>
+                        <td style="text-align:center">
+                            @item.Name
+                        </td>
+                        <td style="text-align:center">
+                            @item.Created
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <h2 style="height:3vh;font-size:3vh;text-align:center">
+        <button type="button" class="btn" style="text-align:left">Connect</button>
+        <button type="button" class="btn" style="text-align:left">Create</button>
         Groups you are in
     </h2>
+    <div style="height:15vh;overflow:auto">
 <table style="border:solid">
     <tr>
         <th style="text-align:center">Name</th>
@@ -100,4 +87,5 @@
          </tr>
      }
 </table>
+        </div>
 </div>
