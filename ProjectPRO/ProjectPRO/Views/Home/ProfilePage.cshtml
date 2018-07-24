@@ -10,8 +10,9 @@
         Layout = "~/Views/Shared/NoRightLayout.cshtml";
     }
 }
+<link rel="stylesheet" href="~/Content/No_Scrollbar.css" />
 <div class="container" style="overflow:auto;height:500px">
-    <img src="~/Images/avatar.png" alt="Avatar" class="avatar" style="vertical-align:middle;width: 150px;height:150px;border-radius:50%;display:block;margin-left:auto;margin-right:auto" />
+    <img src="~/Images/avatar.png" alt="Avatar" class="avatar" style="vertical-align:middle;width: 150px;height:150px;border-radius:50%;display:block;margin-left:auto;margin-right:auto;margin-top:20px" />
 
 <table>
     <tr>
@@ -76,7 +77,11 @@
         </tr>
     }
 </table>
-    <h2 style="text-align:center">Groups you are in</h2>
+    <h2>
+        <button type="button" class="btn">Connect</button>
+        <button type="button" class="btn">Create</button>
+        Groups you are in
+    </h2>
 <table style="border:solid">
     <tr>
         <th style="text-align:center">Name</th>

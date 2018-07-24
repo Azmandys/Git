@@ -13,7 +13,9 @@
                 @Html.LabelFor(m => m.SelGroup,"Group:")
             </td>
             <td style="width:200px">
-                @Html.DropDownListFor(m => Model.SelGroup,Model.Groups, new { @class = "left-align" } )
+                <div class="input-field">
+                    @Html.DropDownListFor(m => Model.SelGroup, Model.Groups, new { @class = "left-align" })
+                </div>
             </td>
         </tr>
         <tr>
@@ -21,7 +23,9 @@
                 @Html.LabelFor(m => m.SelUser, "User:")
             </td>
             <td style="width:200px">
-                @Html.DropDownListFor(m => Model.SelUser,Model.Users, new { @class = "dropdown - content" })
+                <div class="input-field">
+                    @Html.DropDownListFor(m => Model.SelUser, Model.Users, new { @class = "dropdown - content" })
+                </div>
             </td>
         </tr>
         <tr>
@@ -29,7 +33,9 @@
                 @Html.LabelFor(m => m.Role, "Role")
             </td>
             <td style="width:200px">
-                @Html.DropDownListFor(m => Model.Role,new SelectList(new [] { "Teacher", "Student","Main Advisor"}),"Select Role", new { @class = "dropdown - content" })
+                <div class="input-field">
+                    @Html.DropDownListFor(m => Model.Role, new SelectList(new[] { "Teacher", "Student", "Main Advisor" }), "Select Role", new { @class = "dropdown - content" })
+                </div>
             </td>
         </tr>
         <tr>
