@@ -11,13 +11,18 @@
 </head>
 <body style="height:100vh;width:100vw">
  <nav>
-  <ul class="left hide-on-med-and-down">
-      <li>@Html.ActionLink("Add Groups", "AddGroups", "Home")</li>
-      <li>@Html.ActionLink("Create new groups", "CreateG", "Home")</li>
-      <li>@Html.ActionLink("Discussions", "Discussions", "Discussion")</li>
-      <li>@Html.ActionLink("Files", "Files", "File")</li>
-      <li class="right-align">@Html.ActionLink("Profile","ProfilePage","Home")</li>
-  </ul>
+     <div class="nav-wrapper">
+         <ul class="left hide-on-med-and-down">
+             <li>@Html.ActionLink("Add Groups", "AddGroups", "Home")</li>
+             <li>@Html.ActionLink("Create new groups", "CreateG", "Home")</li>
+             <li>@Html.ActionLink("Discussions", "Discussions", "Discussion")</li>
+             <li>@Html.ActionLink("Files", "Files", "File")</li>
+             <li>@Html.ActionLink("Profile", "ProfilePage", "Home")</li>
+         </ul>
+         <ul class="right">
+             <li>@Html.ActionLink("Sign Out", "LogOut", "Login")</li>
+         </ul>
+     </div>
  </nav>
 
 

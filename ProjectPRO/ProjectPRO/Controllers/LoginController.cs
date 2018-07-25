@@ -139,6 +139,12 @@ namespace ProjectPRO.Controllers
             }
         }
 
+        public ActionResult LogOut()
+        {
+            AuthenticationManager.SignOut();
+            return RedirectToAction("Index","Start");
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

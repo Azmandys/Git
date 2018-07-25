@@ -14,8 +14,11 @@
         <ul class="left hide-on-med-and-down">
             <li>@Html.ActionLink("Discussions", "Discussions", "Discussion")</li>
             <li>@Html.ActionLink("Files", "Files", "File")</li>
-            <li class="right-align">@Html.ActionLink("Profile", "ProfilePage", "Home")</li>
+            <li>@Html.ActionLink("Profile", "ProfilePage", "Home")</li>
         </ul>
+		<ul class="right">
+             <li>@Html.ActionLink("Sign Out", "LogOut", "Login")</li>
+         </ul>
     </nav>
 
     <div class="parallax-container" style="height:90vh;width:100vw">
