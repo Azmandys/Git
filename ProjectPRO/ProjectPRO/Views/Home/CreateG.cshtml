@@ -5,21 +5,38 @@
 }
 
 
+<div class="container">
 <h2>CreateGroup</h2>
-@using (Html.BeginForm("Cg", "Home", FormMethod.Post))
+@using (Html.BeginForm("Cg", "Home", FormMethod.Post, new {@enctype = "multipart/form-data" }))
 {
       <table>
           <tr>
-              <td>
+              <td style="width:10vw">
                   @Html.LabelFor(m => m.NameOfGroup, "Name for the group:")
               </td>
-              <td>
+              <td style="width:20vw">
                   @Html.TextBoxFor(m => Model.NameOfGroup)
               </td>
           </tr>
           <tr>
+              <td style="width:10vw">
+                  @Html.LabelFor(m => m.Description, "Description:")
+              </td>
+              <td style="width:20vw">
+                  @Html.TextBoxFor(m => m.Description)
+              </td>
+          </tr>
+          <tr>
+              <td style="width:10vw">
+                  @Html.Label("Avatar")
+              </td>
+              <td style="width:10vw">
+                  <input type="file" name="avatar" accept=".jpg, .jpeg, .png"/>
+              </td>
+          </tr>
+          <tr>
               <td>
-                  <input type="submit" value="Send" />
+                  <input type="submit" class="btn" value="Send" />
               </td>
           </tr>
           <tr>
@@ -29,4 +46,4 @@
           </tr>
       </table>
 }
-
+</div>

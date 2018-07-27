@@ -3,53 +3,26 @@
     ViewBag.Title = "addGroups";
     Layout = "~/Views/Shared/_HomeLayout.cshtml";
 }
+<div class="container">
+    <h2>addGroups</h2>
+    @using (Html.BeginForm("AddGr", "Home", FormMethod.Post))
+    {
+        <label style="font-size:22px">User:</label>
+        <select id="selUser" name="selUser">
+            @foreach (var use in Model.Users)
+            {
+                <option value="@use.Id">@use.Name</option>
+            }
+        </select>
+        <br />
+        <label style="font-size:22px">Role:</label>
+        <select id="roleSel" name="roleSel">
+            <option value="Main Advisor">Main Advisor</option>
+            <option value="Student">Student</option>
+            <option value="Teache">Teacher</option>
+        </select>
+        <input type="submit" value="Send" class="btn" />
+        @Html.ValidationMessage("Error")
 
-<h2>addGroups</h2>
-@using (Html.BeginForm("AddGr", "Home", FormMethod.Post))
-{
-    <table>
-        <tr>
-            <td style="width:60px">
-                @Html.LabelFor(m => m.SelGroup,"Group:")
-            </td>
-            <td style="width:200px">
-                <div class="input-field">
-                    @Html.DropDownListFor(m => Model.SelGroup, Model.Groups, new { @class = "left-align" })
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td style="width:60px">
-                @Html.LabelFor(m => m.SelUser, "User:")
-            </td>
-            <td style="width:200px">
-                <div class="input-field">
-                    @Html.DropDownListFor(m => Model.SelUser, Model.Users, new { @class = "dropdown - content" })
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td style="width:60px">
-                @Html.LabelFor(m => m.Role, "Role")
-            </td>
-            <td style="width:200px">
-                <div class="input-field">
-                    @Html.DropDownListFor(m => Model.Role, new SelectList(new[] { "Teacher", "Student", "Main Advisor" }), "Select Role", new { @class = "dropdown - content" })
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <input type="submit" value="Send" />
-            </td>
-        </tr>
-        <tr>
-            <td>
-                @Html.ValidationMessage("Error")
-            </td>
-        </tr>
-    </table>
-
-
-}
-
+    }
+</div>

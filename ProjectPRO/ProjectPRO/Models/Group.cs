@@ -9,6 +9,9 @@ namespace ProjectPRO.Models
         public int GId { get; set; }
         public string Name { get; set; }
 
+        public string Description { get; set; }
+
+        public byte[] Avatar { get; set; }
         public ICollection<Discussion> Discussions { get; set; }
         public ICollection<File> Files { get; set; }
         public virtual ICollection<GroupPerson> Users { get; set; }

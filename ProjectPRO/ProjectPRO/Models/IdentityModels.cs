@@ -15,6 +15,8 @@ namespace ProjectPRO.Models
 
         public string Specialization { get; set; }
 
+        public byte[] Avatar { get; set; }
+
         public bool ChgRight { get; set; }
         public ICollection<Line> Lines { get; set; }
 

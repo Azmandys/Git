@@ -12,7 +12,7 @@
 }
 
 <div class="container" style="height:80vh">
-    <img src="~/Images/avatar.png" alt="Avatar" class="avatar" style="vertical-align:middle;width: 10vh;height:10vh;border-radius:50%;display:block;margin-left:auto;margin-right:auto;margin-top:20px" />
+    <img src="@Url.Action("UserAvatar","Home")" alt="Avatar" class="avatar" style="vertical-align:middle;width: 10vh;height:10vh;border-radius:50%;display:block;margin-left:auto;margin-right:auto;margin-top:20px" />
     <div style="height:10vh;text-align:center;font-size:2vh">
             Name: @Model.NameUs <br />
             Index Number: @Model.IndexNumber <br />
@@ -65,7 +65,7 @@
 
     <h2 style="height:3vh;font-size:3vh;text-align:center">
         <button type="button" class="btn" style="text-align:left">Connect</button>
-        <button type="button" class="btn" style="text-align:left">Create</button>
+        @Html.ActionLink("Create", "CreateG", "Home", new { @class = "btn" })
         Groups you are in
     </h2>
     <div style="height:15vh;overflow:auto">

@@ -152,7 +152,7 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
-    <Content Include="Images\ouro.jpg" />
+    <Content Include="Images\avatar.png" />
     <Content Include="Scripts\jquery-3.1.1.js" />
     <Content Include="Scripts\jquery-3.1.1.min.js" />
     <Content Include="Scripts\jquery-3.1.1.slim.js" />
@@ -199,6 +199,18 @@
     <Compile Include="Migrations\201807220128308_discAuth.Designer.cs">
       <DependentUpon>201807220128308_discAuth.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201807251010246_descr.cs" />
+    <Compile Include="Migrations\201807251010246_descr.Designer.cs">
+      <DependentUpon>201807251010246_descr.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201807251123031_avu.cs" />
+    <Compile Include="Migrations\201807251123031_avu.Designer.cs">
+      <DependentUpon>201807251123031_avu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201807251124169_avg.cs" />
+    <Compile Include="Migrations\201807251124169_avg.Designer.cs">
+      <DependentUpon>201807251124169_avg.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Discussion.cs" />
     <Compile Include="Models\File.cs" />
@@ -220,6 +232,7 @@
     <Compile Include="ViewModels\CreateGViewModel.cs" />
     <Compile Include="ViewModels\DiscussionViewModel.cs" />
     <Compile Include="ViewModels\FilesViewModel.cs" />
+    <Compile Include="ViewModels\GroupManagementViewModel.cs" />
     <Compile Include="ViewModels\LineViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\ProfilePageViewModel.cs" />
@@ -250,6 +263,7 @@
     <Content Include="Views\Home\CreateG.cshtml" />
     <Content Include="Views\File\AddFile.cshtml" />
     <Content Include="Views\Home\ProfilePage.cshtml" />
+    <Content Include="Views\Home\GroupManagement.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -278,6 +292,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201807220128308_discAuth.resx">
       <DependentUpon>201807220128308_discAuth.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807251010246_descr.resx">
+      <DependentUpon>201807251010246_descr.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807251123031_avu.resx">
+      <DependentUpon>201807251123031_avu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807251124169_avg.resx">
+      <DependentUpon>201807251124169_avg.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -8,6 +8,7 @@ using ProjectPRO.Models;
 using ProjectPRO.ViewModels;
 using System.Data.Entity;
 using System;
+using System.IO;
 
 namespace ProjectPRO.Controllers
 {
@@ -78,103 +79,55 @@ namespace ProjectPRO.Controllers
             }
             viewModel.AdvGp = advgp;
             List<Discussion> dis = db.Discussions.Where(d => d.Creator.Id == userda.Id).ToList();
-            List<File> fil = db.Files.Where(f => f.Author.Id == userda.Id).ToList();
+            List<Models.File> fil = db.Files.Where(f => f.Author.Id == userda.Id).ToList();
             DateTime compar = DateTime.Now;
             compar = compar.AddDays(-7);
             List<Discussion> finalDis = new List<Discussion>();
-            List<File> finalFile = new List<File>();
+            List<Models.File> finalFile = new List<Models.File>();
             for (var it = 0; it < dis.Count; it++)
             {
                 if (dis[it].Created > compar)
                     finalDis.Add(dis[it]);
             }
-            for (var jt = 0; jt < dis.Count; jt++)
+            for (var jt = 0; jt < fil.Count; jt++)
             {
-                if (dis[jt].Created > compar)
-                    finalDis.Add(dis[jt]);
+                if (fil[jt].Created > compar)
+                    finalFile.Add(fil[jt]);
             }
             viewModel.NewDiscussions = finalDis;
             viewModel.NewFiles = finalFile;
             return View(viewModel);
         }
 
-        public ActionResult AddGroups()
+        public ActionResult AddGroups(int? gid)
         {
-            CheckCr();
-            if (ViewBag.chg == 2)
-            {
-                return RedirectToAction("Index", "Home");
-            }
 
-            IEnumerable < SelectListItem > slItem = from x in db.Groups
-                select new SelectListItem
-                {
-                    Selected = x.GId.ToString() == "Active",
-                    Value = x.GId.ToString(),
-                    Text = x.Name
-                };
-            IEnumerable<SelectListItem> sluItem = from x in db.Users
-                select new SelectListItem
-                {
-                    Selected = x.Id == "Active",
-                    Value = x.Id,
-                    Text = x.Name
-                };
-            var model = new AddGroupsViewModel
-            {
-                Groups = slItem,
-                Users = sluItem
-            };
-
-
-
+            var model = new AddGroupsViewModel();
+            model.Users = db.Users.ToList();
+            ViewBag.GId = gid;
             return View(model);
         }
 
-        public ActionResult AddGroupsParam()
+        public ActionResult AddGroupsParam(int? gid)
         {
-            CheckCr();
-            if (ViewBag.chg == 2)
-            {
-                return RedirectToAction("Index", "Home");
-            }
-
-            IEnumerable<SelectListItem> slItem = from x in db.Groups
-                select new SelectListItem
-                {
-                    Selected = x.GId.ToString() == "Active",
-                    Value = x.GId.ToString(),
-                    Text = x.Name
-                };
-            IEnumerable<SelectListItem> sluItem = from x in db.Users
-                select new SelectListItem
-                {
-                    Selected = x.Id == "Active",
-                    Value = x.Id,
-                    Text = x.Name
-                };
-            var model = new AddGroupsViewModel
-            {
-                Groups = slItem,
-                Users = sluItem
-            };
-
-
+            var model = new AddGroupsViewModel();
+            model.Users = db.Users.ToList();
+            ViewBag.GId = gid;
             ModelState.AddModelError("Error", @"This person is already in this group");
             return View("addGroups",model);
         }
 
 
 
-        public  ActionResult AddGr(AddGroupsViewModel model)
+        public  ActionResult AddGr(AddGroupsViewModel model, int? gid)
         {
-            
-            ApplicationUser user = db.Users.Where(u => u.Id == model.SelUser).Single();
-            var gid = int.Parse(model.SelGroup);
+            string selU = Request.Form["selUser"].ToString();
+            ApplicationUser user = db.Users.Where(u => u.Id == selU).Single();
+            string role = Request.Form["roleSel"].ToString();
             Group addGr = db.Groups.Where(g => g.GId == gid).Single();
             if (db.GroupPersons.Where(gg => gg.Group.GId == addGr.GId && gg.User.Id == user.Id).SingleOrDefault() != null)
             { 
-                return RedirectToAction("AddGroupsParam", "Home");
+                return RedirectToAction("AddGroupsParam", "Home", new { @gid = gid });
             }
 
             GroupPerson gp = new GroupPerson();
@@ -188,24 +141,18 @@ namespace ProjectPRO.Controllers
             }
             gp.Group = addGr;
             gp.User = user;
-            gp.Role = model.Role;
+            gp.Role = role;
             user.Groups.Add(gp);
             addGr.Users.Add(gp);
             db.Users.Attach(user);
             db.Groups.Attach(addGr);
             db.GroupPersons.Add(gp);
             db.SaveChanges();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("GroupManagement", "Home", new {@gid=gid });
         }
 
         public ActionResult CreateG()
         {
-            CheckCr();
-            if (ViewBag.chg == 2)
-            {
-                return RedirectToAction("Index", "Home");
-            }
-
             var model = new CreateGViewModel();
             return View(model);
         }
@@ -229,9 +176,43 @@ namespace ProjectPRO.Controllers
                 nGroup.GId = db.Groups.Max(g => g.GId) + 1;
             }
             nGroup.Name = model.NameOfGroup;
+            nGroup.Description = model.Description;
+            byte[] imageData = null;
+            if (Request.Files.Count > 0)
+            {
+                HttpPostedFileBase poImgFile = Request.Files["Avatar"];
+
+                using (var binary = new BinaryReader(poImgFile.InputStream))
+                {
+                    imageData = binary.ReadBytes(poImgFile.ContentLength);
+                }
+            }
+            nGroup.Avatar = imageData;
             db.Groups.Add(nGroup);
             db.SaveChanges();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("GroupManagement", "Home", new {@gid = nGroup.GId });
+        }
+
+        public ActionResult GroupManagement(int gid)
+        {
+            var grou = db.Groups.Where(g => g.GId == gid).Single();
+            var model = new GroupManagementViewModel();
+            ViewBag.groupId = gid;
+            model.gNmae = grou.Name;
+            model.gDesc = grou.Description;
+
+            List<GroupPerson> gp = new List<GroupPerson>();
+            List<ApplicationUser> use = new List<ApplicationUser>();
+
+            gp = db.GroupPersons.Where(g => g.Group.GId == gid).ToList();
+            for (var i = 0; i < gp.Count; i++)
+            {
+                use.Add(gp[i].User);
+            }
+            model.gUsers = use;
+            model.gGro = gp;
+
+            return View(model);
         }
 
 
@@ -246,6 +227,46 @@ namespace ProjectPRO.Controllers
             {
                 ViewBag.chg = 2;
             }
+        }
+
+       public FileContentResult GroupAvatar(int gid)
+        {
+            var gr = db.Groups.Where(g => g.GId==gid).Single();
+            if (gr.Avatar == null)
+            {
+                string fileName = HttpContext.Server.MapPath(@"~/Images/avatar.png");
+
+                byte[] imageData = null;
+                FileInfo fileInfo = new FileInfo(fileName);
+                long imageFileLength = fileInfo.Length;
+                FileStream fs = new FileStream(fileName, FileMode.Open, FileAccess.Read);
+                BinaryReader br = new BinaryReader(fs);
+                imageData = br.ReadBytes((int)imageFileLength);
+                return File(imageData, "image/png");
+            }
+            else
+            return new FileContentResult(gr.Avatar, "image/jpeg");
+        }
+       
+        public FileContentResult UserAvatar()
+        {
+            string userId = User.Identity.GetUserId();
+
+            var bu = db.Users.Where(b => b.Id == userId).Single();
+            if (bu.Avatar == null)
+            {
+                string fileName = HttpContext.Server.MapPath(@"~/Images/avatar.png");
+
+                byte[] imageData = null;
+                FileInfo fileInfo = new FileInfo(fileName);
+                long imageFileLength = fileInfo.Length;
+                FileStream fs = new FileStream(fileName, FileMode.Open, FileAccess.Read);
+                BinaryReader br = new BinaryReader(fs);
+                imageData = br.ReadBytes((int)imageFileLength);
+                return File(imageData, "image/png");
+            }
+            else
+                return new FileContentResult(bu.Avatar, "image/jpeg");
         }
 
     }
