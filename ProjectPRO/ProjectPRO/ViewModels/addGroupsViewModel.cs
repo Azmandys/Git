@@ -8,5 +8,7 @@ namespace ProjectPRO.ViewModels
     {  
         public IEnumerable<ApplicationUser> Users { get; set; }
 
+        public int GroupId { get; set; }
+
     }
 }

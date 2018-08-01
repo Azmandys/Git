@@ -5,11 +5,11 @@
 }
 <div class="container">
 <h3 style="text-align:center">Manage Group</h3>
-    <img src="@Url.Action("GroupAvatar","Home",new { @gid = ViewBag.groupId})" alt="Avatar" class="avatar" style="vertical-align:middle;width: 10vh;height:10vh;border-radius:50%;display:block;margin-left:auto;margin-right:auto;margin-top:20px"/>
+    <img src="@Url.Action("GroupAvatar","Home",new { @gid = Model.GroupId})" alt="avatar" class="avatar" style="vertical-align:middle;width: 10vh;height:10vh;border-radius:50%;display:block;margin-left:auto;margin-right:auto;margin-top:20px"/>
 <h3 style="text-align:center">@Model.gNmae</h3>
     <p>@Model.gDesc</p>
         <h3 style="text-align:center">
-            @Html.ActionLink("Add new members", "AddGroups", "Home", new { @class = "btn" , @gid=ViewBag.GId })
+            @Html.ActionLink("Add new members", "AddGroups", "Home", new { @gid=Model.GroupId }, new { @class = "btn" })
         Group Members
         </h3>
     <div style="height:20vh;overflow:auto">

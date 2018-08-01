@@ -64,7 +64,6 @@
     </div>
 
     <h2 style="height:3vh;font-size:3vh;text-align:center">
-        <button type="button" class="btn" style="text-align:left">Connect</button>
         @Html.ActionLink("Create", "CreateG", "Home", new { @class = "btn" })
         Groups you are in
     </h2>
@@ -73,6 +72,7 @@
     <tr>
         <th style="text-align:center">Name</th>
         <th style="text-align:center">Main advisor</th>
+        <th></th>
     </tr>
     
      @foreach (var item in Model.AdvGp)
@@ -83,6 +83,9 @@
              </td>
              <td style="text-align:center">
                   @item.User.Name
+             </td>
+             <td>
+                 @Html.ActionLink("Manage","GroupManagement","Home",new {@gid = item.Group.GId}, new { @class = "btn" })
              </td>
          </tr>
      }

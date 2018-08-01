@@ -12,6 +12,8 @@ namespace ProjectPRO.ViewModels
 
         public string gDesc { get; set; }
 
+        public int GroupId { get; set; }
+
         public IEnumerable<ApplicationUser> gUsers { get; set; }
 
         public IEnumerable<GroupPerson> gGro { get; set; }

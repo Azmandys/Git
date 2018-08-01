@@ -36,6 +36,19 @@
           </tr>
           <tr>
               <td>
+                  <label>Main Advisor:</label>
+              </td>
+              <td>
+                  <select id="MASel" name="MASel" style="display:inline">
+                      @foreach (var use in Model.MainAdvisorCandidats)
+                      {
+                          <option value="@use.Id">@use.Name</option>
+                      }
+                  </select>
+              </td>
+          </tr>
+          <tr>
+              <td>
                   <input type="submit" class="btn" value="Send" />
               </td>
           </tr>

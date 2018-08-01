@@ -5,10 +5,10 @@
 }
 <div class="container">
     <h2>addGroups</h2>
-    @using (Html.BeginForm("AddGr", "Home", FormMethod.Post))
+    @using (Html.BeginForm("AddGr", "Home", new { @gid = Model.GroupId } , FormMethod.Post))
     {
         <label style="font-size:22px">User:</label>
-        <select id="selUser" name="selUser">
+        <select id="selUser" name="selUser" style="display:inline">
             @foreach (var use in Model.Users)
             {
                 <option value="@use.Id">@use.Name</option>
@@ -16,8 +16,7 @@
         </select>
         <br />
         <label style="font-size:22px">Role:</label>
-        <select id="roleSel" name="roleSel">
-            <option value="Main Advisor">Main Advisor</option>
+        <select id="roleSel" name="roleSel" style="display:inline">
             <option value="Student">Student</option>
             <option value="Teache">Teacher</option>
         </select>

@@ -104,7 +104,7 @@ namespace ProjectPRO.Controllers
 
             var model = new AddGroupsViewModel();
             model.Users = db.Users.ToList();
-            ViewBag.GId = gid;
+            model.GroupId = (int)gid;
             return View(model);
         }
 
@@ -112,14 +112,14 @@ namespace ProjectPRO.Controllers
         {
             var model = new AddGroupsViewModel();
             model.Users = db.Users.ToList();
-            ViewBag.GId = gid;
+            model.GroupId = (int)gid;
             ModelState.AddModelError("Error", @"This person is already in this group");
             return View("addGroups",model);
         }
 
 
 
-        public  ActionResult AddGr(AddGroupsViewModel model, int? gid)
+        public  ActionResult AddGr(AddGroupsViewModel model,int? gid)
         {
             string selU = Request.Form["selUser"].ToString();
             ApplicationUser user = db.Users.Where(u => u.Id == selU).Single();
@@ -154,6 +154,7 @@ namespace ProjectPRO.Controllers
         public ActionResult CreateG()
         {
             var model = new CreateGViewModel();
+            model.MainAdvisorCandidats = db.Users.ToList();
             return View(model);
         }
 
@@ -189,6 +190,28 @@ namespace ProjectPRO.Controllers
             }
             nGroup.Avatar = imageData;
             db.Groups.Add(nGroup);
+            var me = new GroupPerson();
+            var us = User.Identity.GetUserId();
+            me.User = db.Users.Where(u => u.Id == us).Single();
+            me.Group = nGroup;
+            if (!db.GroupPersons.Any())
+            {
+                me.Gpid = 1;
+            }
+            if (db.GroupPersons.Any())
+            {
+                me.Gpid = db.GroupPersons.Max(grp => grp.Gpid) + 1;
+            }
+            me.Role = "Group Leader";
+            db.GroupPersons.Add(me);
+            string selMA = Request.Form["MASel"].ToString();
+            var newma = db.Users.Where(u => u.Id == selMA).Single();
+            var ma = new GroupPerson();
+            ma.User = newma;
+            ma.Group = nGroup;
+            ma.Gpid = me.Gpid + 1;
+            ma.Role = "Main Advisor";
+            db.GroupPersons.Add(ma);
             db.SaveChanges();
             return RedirectToAction("GroupManagement", "Home", new {@gid = nGroup.GId });
         }
@@ -197,7 +220,7 @@ namespace ProjectPRO.Controllers
         {
             var grou = db.Groups.Where(g => g.GId == gid).Single();
             var model = new GroupManagementViewModel();
-            ViewBag.groupId = gid;
+            model.GroupId = gid;
             model.gNmae = grou.Name;
             model.gDesc = grou.Description;
 
@@ -229,12 +252,12 @@ namespace ProjectPRO.Controllers
             }
         }
 
-       public FileContentResult GroupAvatar(int gid)
+       public FileContentResult GroupAvatar(int? gid)
         {
             var gr = db.Groups.Where(g => g.GId==gid).Single();
             if (gr.Avatar == null)
             {
-                string fileName = HttpContext.Server.MapPath(@"~/Images/avatar.png");
+                string fileName = HttpContext.Server.MapPath("~/Images/avatar.png");
 
                 byte[] imageData = null;
                 FileInfo fileInfo = new FileInfo(fileName);
@@ -242,6 +265,7 @@ namespace ProjectPRO.Controllers
                 FileStream fs = new FileStream(fileName, FileMode.Open, FileAccess.Read);
                 BinaryReader br = new BinaryReader(fs);
                 imageData = br.ReadBytes((int)imageFileLength);
+
                 return File(imageData, "image/png");
             }
             else
