@@ -1,0 +1,35 @@
+﻿@model ProjectPRO.ViewModels.InviteManagementViewModel
+@{
+    ViewBag.Title = "InviteManagement";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+<div class="container">
+    <h2>Invite Management</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Group Name</th>
+                <th>Group Leader</th>
+                <th>Group Advisor</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Groups)
+            {
+                <tr>
+                    <td>@item.Name</td>
+                    <td>@item.Users.Where(u =>u.Role == "Group Leader").Single().User.UserName</td>
+                    <td>@item.Users.Where(u =>u.Role == "Main Advisor").Single().User.UserName</td>
+                    <td>@item.Description</td>
+                    <td>@Html.ActionLink("Accept","AcceptInvite","Home", new {@gid=item.GId })</td>
+                    <td>@Html.ActionLink("Reject","DenyInvite","Home",new { @gid = item.GId })</td>
+                </tr>
+                
+            }
+            <tr>
+
+            </tr>
+        </tbody>
+    </table>
+</div>

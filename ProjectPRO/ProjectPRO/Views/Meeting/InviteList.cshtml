@@ -1,0 +1,24 @@
+﻿@model ProjectPRO.ViewModels.InviteListViewModel
+@{
+    ViewBag.Title = "InviteList";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+<div class="container">
+    <h2>Invite List</h2>
+    <table>
+        <tr>
+            <th>Meeting Name</th>
+            <th>Date</th>
+        </tr>
+        @foreach (var item in Model.Invites)
+        {
+        <tr>
+            <td>@item.Meeting.Name</td>
+            <td>@item.Meeting.Date</td>
+            <td>@Html.ActionLink("Accept", "AcceptInvite","Meeting", new { @meetid = Model.Meetingid  ,@invid = item.InvId})</td>
+            <td>@Html.ActionLink("Reject", "RejectInvite","Meeting", new { @meetid = Model.Meetingid , @invid = item.InvId })</td>
+        </tr>
+        }
+    </table>
+</div>
+

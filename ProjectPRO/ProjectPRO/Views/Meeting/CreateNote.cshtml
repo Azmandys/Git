@@ -1,0 +1,20 @@
+﻿@model ProjectPRO.ViewModels.CreateNoteViewModel
+@{
+    ViewBag.Title = "CreateNote";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+<div class="container">
+    <h2>Create Note</h2>
+    @using (Html.BeginForm("CrNote", "Meeting", FormMethod.Post))
+    {
+    <table>
+        <tr>
+            <td>@Html.LabelFor(m => m.Text)</td>
+            <td>@Html.TextAreaFor(m => m.Text)</td>
+        </tr>
+        <tr>
+        <td><input type="submit" class="btn" value="send" /></td>
+               </tr>
+    </table>
+    }
+</div>

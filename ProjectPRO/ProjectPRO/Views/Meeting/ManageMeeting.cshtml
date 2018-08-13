@@ -1,0 +1,43 @@
+﻿@model ProjectPRO.ViewModels.ManageMeetingViewModel
+@{
+    ViewBag.Title = "ManageMeeting";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+<div class="container">
+     <h2>Manage Meeting</h2>
+     <h3>Name: @Model.Name</h3>
+     <h3>Date: @Model.Date</h3>
+     <h3>Time: @Model.Time</h3>
+     <h3>Participants: </h3>
+     <h3>@Html.ActionLink("Invite new people","InviteToMeeting","Meeting",new {@meetid=Model.MeetId },new { @class = "btn" })</h3>
+     <table>
+         <tr>
+             <th>Name</th>
+             <th>Index Number</th>
+             <th>Status</th>
+         </tr>
+         @foreach (var item in Model.Participants)
+         {
+             <tr>
+                 <td>@item.Invitee.UserName</td>
+                 <td>@item.Invitee.IndexNumber</td>
+                 <td>@item.Status</td>
+             </tr>
+         }
+     </table>
+    <h3>Notes:  @Html.ActionLink("Create new note","CreateNote","Meeting",new { @meetid = Model.MeetId }, new { @class = "btn" })</h3>
+    <table>
+        <tr>
+            <th>Author</th>
+            <th>Note</th>
+        </tr>
+        @foreach (var no in Model.Notes)
+        {
+            <tr>
+                <td>@no.Author.UserName</td>
+                <td>@no.Text</td>
+            </tr>
+        }
+    </table>
+    </div>
+

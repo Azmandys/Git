@@ -47,7 +47,7 @@ namespace ProjectPRO.Controllers
 
             ViewBag.UserId = uid;
 
-            List<GroupPerson> gpr = viewModel.Gp.Where(u => u.User.Id == uid).ToList();
+            List<GroupPerson> gpr = viewModel.Gp.Where(u => u.User.Id == uid && u.Status=="Confirmed").ToList();
             List<Group> gro = new List<Group>();
             for (var i = 0; i < gpr.Count; i++)
                 gro.Add(gpr[i].Group);

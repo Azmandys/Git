@@ -28,6 +28,7 @@
                        <td>@item.Name</td>
                        <td>@item.IndexNumber</td>
                        <td>@Model.gGro.Where(g => g.User == item).Single().Role</td>
+                       <td>@Model.gGro.Where(g => g.User ==item).Single().Status</td>
                    </tr>
                 }
 

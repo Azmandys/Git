@@ -1,0 +1,38 @@
+﻿@model ProjectPRO.ViewModels.CreateMeetingViewModel
+@{
+    ViewBag.Title = "CreateMeeting";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+<div class="container">
+    @using (Html.BeginForm("CrMeeting", "Meeting", FormMethod.Post))
+    {
+    <h2>Create Meeting</h2>
+    <table>
+        <tr>
+            <td>@Html.LabelFor(m => m.Name)</td>
+            <td>@Html.TextBoxFor(m => m.Name)</td>
+        </tr>
+        <tr>
+            <td><label>Date</label></td>
+            <td><input type="text"class="datepicker-calendar-container" id="Datepck" name="Datepck"/></td>
+        </tr>
+        <tr>
+            <td><label>Time</label></td>
+            <td><input type="text" class="timepicker-container" id="Timepck" name="Timepck"/></td>
+        </tr>
+        <tr>
+            <td><label>Group</label></td>
+            <td><select id="selGroup" name="selGroup" style="display:inline">
+    @foreach (var item in Model.Groups)
+    {
+        <option value="@item.GId">@item.Name</option>
+    }
+</select></td>
+        </tr>
+        <tr>
+            <td><input type="submit" class="btn" value="send" /></td>
+        </tr>
+    </table>
+    }
+</div>
+

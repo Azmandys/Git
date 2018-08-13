@@ -1,0 +1,35 @@
+﻿@model ProjectPRO.ViewModels.MeetingListViewModel
+@{
+    ViewBag.Title = "MeetingList";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+<div class="container">
+    <h2>MeetingList</h2>
+    <h3>
+        @Html.ActionLink("Create new meeting","CreateMeeting","Meeting", new { @class = "btn" })
+        @Html.ActionLink("My Invites","InviteList","Meeting", new { @class = "btn" })
+    </h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Group</th>
+                <th>Date</th>
+                <th>Time</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Meetings)
+            {
+                <tr>
+                    <td>@item.Name</td>
+                    <td>@item.Group.Name</td>
+                    <td>@item.Date</td>
+                    <td>@item.Time</td>
+                    <td>@Html.ActionLink("Manage","ManageMeeting","Meeting",new {@meetid=item.MId })</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+

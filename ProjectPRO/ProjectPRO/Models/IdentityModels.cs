@@ -22,6 +22,10 @@ namespace ProjectPRO.Models
 
         public ICollection<File> Files { get; set; }
 
+        public ICollection<MeetingInvitation> InvitationsToMeetings { get; set; }
+
+        public ICollection<Note> Notes { get; set; }
+
         public virtual ICollection<GroupPerson> Groups { get; set; } 
         
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
@@ -47,6 +51,11 @@ namespace ProjectPRO.Models
         public DbSet<Line> Lines { get; set; }
         public DbSet<Discussion> Discussions { get; set; }
 
+        public DbSet<Note> Notes { get; set; }
+
+        public DbSet<MeetingInvitation> MeetingInvitations { get; set; }
+
+        public DbSet<Meeting> Meetings { get; set; }
         
         public DbSet<File> Files { get; set; }
 

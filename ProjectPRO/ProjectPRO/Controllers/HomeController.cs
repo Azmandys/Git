@@ -62,12 +62,12 @@ namespace ProjectPRO.Controllers
 
             ViewBag.UserId = uid;
 
-            List<GroupPerson> gpr = viewModel.Gp.Where(u => u.User.Id == uid).ToList();
+            List<GroupPerson> gpr = viewModel.Gp.Where(u => u.User.Id == uid && u.Status=="Confirmed").ToList();
             List<Group> gro = new List<Group>();           
             for (var i = 0; i < gpr.Count; i++)
                 gro.Add(gpr[i].Group);
             viewModel.Groups = gro;
-            List<GroupPerson> adgp = viewModel.Gp.Where(g => g.Role == "Main Advisor").ToList();
+            List<GroupPerson> adgp = viewModel.Gp.Where(g => g.Role == "Main Advisor" && g.Status!="Denied").ToList();
             List<GroupPerson> advgp = new List<GroupPerson>();
             for (var j = 0; j < gro.Count; j++)
             {
@@ -99,6 +99,28 @@ namespace ProjectPRO.Controllers
             return View(viewModel);
         }
 
+        public ActionResult AcceptInvite(int? gid)
+        {
+            var uid = User.Identity.GetUserId();
+            var user = db.Users.Where(u => u.Id == uid).Single();
+            var invite = db.GroupPersons.Where(g => g.Group.GId == gid && g.User == user).Single();
+            invite.Status = "Confirmed";
+            db.GroupPersons.Attach(invite);
+            db.SaveChanges();
+            return RedirectToAction("InviteManagement", "Home");
+        }
+
+        public ActionResult DenyInvite(int? gid)
+        {
+            var uid = User.Identity.GetUserId();
+            var user = db.Users.Where(u => u.Id == uid).Single();
+            var invite = db.GroupPersons.Where(g => g.Group.GId == gid && g.User == user).Single();
+            invite.Status = "Denied";
+            db.GroupPersons.Attach(invite);
+            db.SaveChanges();
+            return RedirectToAction("InviteManagement", "Home");
+        }
+
         public ActionResult AddGroups(int? gid)
         {
 
@@ -113,7 +135,7 @@ namespace ProjectPRO.Controllers
             var model = new AddGroupsViewModel();
             model.Users = db.Users.ToList();
             model.GroupId = (int)gid;
-            ModelState.AddModelError("Error", @"This person is already in this group");
+            ModelState.AddModelError("Error", @"This person is already in this group, invited to this group, or recently refused invite to this group");
             return View("addGroups",model);
         }
 
@@ -142,6 +164,7 @@ namespace ProjectPRO.Controllers
             gp.Group = addGr;
             gp.User = user;
             gp.Role = role;
+            gp.Status = "Invitation";
             user.Groups.Add(gp);
             addGr.Users.Add(gp);
             db.Users.Attach(user);
@@ -203,6 +226,7 @@ namespace ProjectPRO.Controllers
                 me.Gpid = db.GroupPersons.Max(grp => grp.Gpid) + 1;
             }
             me.Role = "Group Leader";
+            me.Status = "Confirmed";
             db.GroupPersons.Add(me);
             string selMA = Request.Form["MASel"].ToString();
             var newma = db.Users.Where(u => u.Id == selMA).Single();
@@ -211,6 +235,7 @@ namespace ProjectPRO.Controllers
             ma.Group = nGroup;
             ma.Gpid = me.Gpid + 1;
             ma.Role = "Main Advisor";
+            ma.Status = "Invitation";
             db.GroupPersons.Add(ma);
             db.SaveChanges();
             return RedirectToAction("GroupManagement", "Home", new {@gid = nGroup.GId });
@@ -271,6 +296,22 @@ namespace ProjectPRO.Controllers
             else
             return new FileContentResult(gr.Avatar, "image/jpeg");
         }
+
+        public ActionResult InviteManagement()
+        {
+            InviteManagementViewModel model = new InviteManagementViewModel();
+            var use = User.Identity.GetUserId();
+            var grp = db.GroupPersons.Where(gp => gp.User.Id == use).ToList();
+            List<Group> gr = new List<Group>();
+            for (int i = 0; i < grp.Count(); i++)
+            {
+                gr.Add(grp[i].Group);
+            }
+            model.Invites = grp;
+            model.Groups = gr;
+            return View(model);
+        }
+
        
         public FileContentResult UserAvatar()
         {

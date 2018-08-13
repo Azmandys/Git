@@ -1,0 +1,22 @@
+﻿@model ProjectPRO.ViewModels.InviteToMeetingViewModel
+@{
+    ViewBag.Title = "InviteToMeeting";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+<div class="container">
+<h2>Invite To Meeting</h2>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Index Number</th>
+        </tr>
+        @foreach (var item in Model.Users)
+        {
+            <tr>
+                <td>@item.UserName</td>
+                <td>@item.IndexNumber</td>
+                <td>@Html.ActionLink("Invite", "InvitePerson","Meeting",new {@meetid=Model.MeetId,@uid=item.Id },new {@class="btn" })</td>
+            </tr>
+        }
+    </table>
+</div>

@@ -171,6 +171,7 @@
     <Compile Include="Controllers\FileController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\MeetingController.cs" />
     <Compile Include="Controllers\StartController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -211,6 +212,14 @@
     <Compile Include="Migrations\201807251124169_avg.Designer.cs">
       <DependentUpon>201807251124169_avg.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201808110958193_invite.cs" />
+    <Compile Include="Migrations\201808110958193_invite.Designer.cs">
+      <DependentUpon>201808110958193_invite.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808130815284_meeting.cs" />
+    <Compile Include="Migrations\201808130815284_meeting.Designer.cs">
+      <DependentUpon>201808130815284_meeting.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Discussion.cs" />
     <Compile Include="Models\File.cs" />
@@ -218,6 +227,9 @@
     <Compile Include="Models\Group.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Line.cs" />
+    <Compile Include="Models\Meeting.cs" />
+    <Compile Include="Models\MeetingInvitation.cs" />
+    <Compile Include="Models\Note.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -230,11 +242,18 @@
     <Compile Include="ViewModels\addGroupsViewModel.cs" />
     <Compile Include="ViewModels\createDiscViewModel.cs" />
     <Compile Include="ViewModels\CreateGViewModel.cs" />
+    <Compile Include="ViewModels\CreateMeetingViewModel.cs" />
+    <Compile Include="ViewModels\CreateNoteViewModel.cs" />
     <Compile Include="ViewModels\DiscussionViewModel.cs" />
     <Compile Include="ViewModels\FilesViewModel.cs" />
     <Compile Include="ViewModels\GroupManagementViewModel.cs" />
+    <Compile Include="ViewModels\InviteListViewModel.cs" />
+    <Compile Include="ViewModels\InviteManagementViewModel.cs" />
+    <Compile Include="ViewModels\InviteToMeetingViewModel.cs" />
     <Compile Include="ViewModels\LineViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
+    <Compile Include="ViewModels\ManageMeetingViewModel.cs" />
+    <Compile Include="ViewModels\MeetingListViewModel.cs" />
     <Compile Include="ViewModels\ProfilePageViewModel.cs" />
     <Compile Include="ViewModels\RegisterViewModel.cs" />
   </ItemGroup>
@@ -264,6 +283,13 @@
     <Content Include="Views\File\AddFile.cshtml" />
     <Content Include="Views\Home\ProfilePage.cshtml" />
     <Content Include="Views\Home\GroupManagement.cshtml" />
+    <Content Include="Views\Home\InviteManagement.cshtml" />
+    <Content Include="Views\Meeting\MeetingList.cshtml" />
+    <Content Include="Views\Meeting\CreateMeeting.cshtml" />
+    <Content Include="Views\Meeting\CreateNote.cshtml" />
+    <Content Include="Views\Meeting\InviteList.cshtml" />
+    <Content Include="Views\Meeting\ManageMeeting.cshtml" />
+    <Content Include="Views\Meeting\InviteToMeeting.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -301,6 +327,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201807251124169_avg.resx">
       <DependentUpon>201807251124169_avg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808110958193_invite.resx">
+      <DependentUpon>201808110958193_invite.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808130815284_meeting.resx">
+      <DependentUpon>201808130815284_meeting.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

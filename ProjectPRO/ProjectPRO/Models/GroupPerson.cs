@@ -9,6 +9,8 @@ namespace ProjectPRO.Models
 
         public string Role { get; set; }
 
+        public string Status { get; set; }
+
         public virtual ApplicationUser User { get; set; }
 
         public virtual Group Group { get; set; }
