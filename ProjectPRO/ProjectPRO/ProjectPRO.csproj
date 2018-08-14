@@ -220,6 +220,10 @@
     <Compile Include="Migrations\201808130815284_meeting.Designer.cs">
       <DependentUpon>201808130815284_meeting.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201808131607071_meetingNew.cs" />
+    <Compile Include="Migrations\201808131607071_meetingNew.Designer.cs">
+      <DependentUpon>201808131607071_meetingNew.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Discussion.cs" />
     <Compile Include="Models\File.cs" />
@@ -333,6 +337,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201808130815284_meeting.resx">
       <DependentUpon>201808130815284_meeting.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808131607071_meetingNew.resx">
+      <DependentUpon>201808131607071_meetingNew.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

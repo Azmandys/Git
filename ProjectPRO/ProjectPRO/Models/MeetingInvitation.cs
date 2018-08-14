@@ -10,9 +10,9 @@ namespace ProjectPRO.Models
     {
         [Key]
         public int InvId { get; set; }
-        public ApplicationUser Invitee { get; set; }
+        public virtual ApplicationUser Invitee { get; set; }
 
-        public Meeting Meeting { get; set; }
+        public virtual Meeting Meeting { get; set; }
 
         public string Status { get; set; }
     }

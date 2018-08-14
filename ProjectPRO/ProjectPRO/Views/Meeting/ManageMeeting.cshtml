@@ -5,11 +5,11 @@
 }
 <div class="container">
      <h2>Manage Meeting</h2>
-     <h3>Name: @Model.Name</h3>
-     <h3>Date: @Model.Date</h3>
-     <h3>Time: @Model.Time</h3>
-     <h3>Participants: </h3>
-     <h3>@Html.ActionLink("Invite new people","InviteToMeeting","Meeting",new {@meetid=Model.MeetId },new { @class = "btn" })</h3>
+     Name: @Model.Name<br />
+     Date: @Model.Date<br />
+     Time: @Model.Time<br />
+     Participants: @Html.ActionLink("Invite new people","InviteToMeeting","Meeting",new {@meetid=Model.MeetId },new { @class = "btn" })
+     <br />
      <table>
          <tr>
              <th>Name</th>
@@ -19,13 +19,13 @@
          @foreach (var item in Model.Participants)
          {
              <tr>
-                 <td>@item.Invitee.UserName</td>
+                 <td>@item.Invitee.Name</td>
                  <td>@item.Invitee.IndexNumber</td>
                  <td>@item.Status</td>
              </tr>
          }
      </table>
-    <h3>Notes:  @Html.ActionLink("Create new note","CreateNote","Meeting",new { @meetid = Model.MeetId }, new { @class = "btn" })</h3>
+    <h4>Notes:  @Html.ActionLink("Create new note","CreateNote","Meeting",new { @meetid = Model.MeetId }, new { @class = "btn" })</h4>
     <table>
         <tr>
             <th>Author</th>
@@ -34,7 +34,7 @@
         @foreach (var no in Model.Notes)
         {
             <tr>
-                <td>@no.Author.UserName</td>
+                <td>@no.Author.Name</td>
                 <td>@no.Text</td>
             </tr>
         }

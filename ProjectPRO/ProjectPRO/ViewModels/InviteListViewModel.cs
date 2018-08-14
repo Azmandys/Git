@@ -8,7 +8,6 @@ namespace ProjectPRO.ViewModels
 {
     public class InviteListViewModel
     {
-        public int Meetingid { get; set; }
         public ICollection<MeetingInvitation> Invites { get; set; }
     }
 }

@@ -9,6 +9,12 @@
         @Html.ActionLink("Create new meeting","CreateMeeting","Meeting", new { @class = "btn" })
         @Html.ActionLink("My Invites","InviteList","Meeting", new { @class = "btn" })
     </h3>
+    @if (Model.Meetings == null)
+    {
+        <h3>No meetings</h3>
+    }
+    else
+    {
     <table>
         <thead>
             <tr>
@@ -21,15 +27,28 @@
         <tbody>
             @foreach (var item in Model.Meetings)
             {
+                if (item == null)
+                {
+                    <tr>
+                        <td>error</td>
+                        <td>error</td>
+                        <td>error</td>
+                        <td>error</td>
+                    </tr>
+                }
+                else
+                {
                 <tr>
                     <td>@item.Name</td>
                     <td>@item.Group.Name</td>
                     <td>@item.Date</td>
                     <td>@item.Time</td>
-                    <td>@Html.ActionLink("Manage","ManageMeeting","Meeting",new {@meetid=item.MId })</td>
+                    <td>@Html.ActionLink("Manage", "ManageMeeting", "Meeting", new { @meetid = item.MId }, new { @class = "btn" })</td>
                 </tr>
-            }
+                    }
+                }
         </tbody>
     </table>
+    }
 </div>
 

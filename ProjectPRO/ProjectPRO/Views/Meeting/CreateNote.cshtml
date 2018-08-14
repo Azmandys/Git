@@ -5,7 +5,7 @@
 }
 <div class="container">
     <h2>Create Note</h2>
-    @using (Html.BeginForm("CrNote", "Meeting", FormMethod.Post))
+    @using (Html.BeginForm("CrNote", "Meeting",new {@meetid=Model.MeetId }, FormMethod.Post))
     {
     <table>
         <tr>

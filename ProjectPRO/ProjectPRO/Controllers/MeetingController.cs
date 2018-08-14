@@ -20,16 +20,45 @@ namespace ProjectPRO.Controllers
         {
             return View();
         }
+        public MeetingController()
+        {
+
+        }
+
+        public MeetingController(ApplicationUserManager userManager)
+        {
+            UserManager = userManager;
+        }
+
+        public ApplicationUserManager UserManager
+        {
+            get
+            {
+                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+            private set
+            {
+                _userManager = value;
+            }
+        }
 
         public ActionResult MeetingList()
         {
             MeetingListViewModel model = new MeetingListViewModel();
             var uid = User.Identity.GetUserId();
             var invu = db.MeetingInvitations.Where(m => m.Invitee.Id == uid).ToList();
-            List<Meeting> meet = new List<Meeting>();
-            for (var i = 0; i < invu.Count; i++)
+            List<MeetingInvitation> mu = new List<MeetingInvitation>();
+            for (var j = 0; j < invu.Count; j++)
             {
-                meet.Add(invu[i].Meeting);
+                if (invu[j].Status == "Accepted")
+                {
+                    mu.Add(invu[j]);
+                }
+            }
+            List<Meeting> meet = new List<Meeting>();
+            for (var i = 0; i < mu.Count; i++)
+            {
+                meet.Add(mu[i].Meeting);
             }
             model.Meetings = meet;
             return View(model);
@@ -68,9 +97,14 @@ namespace ProjectPRO.Controllers
             var us = db.Users.Where(u => u.Id == usi).Single();
             mi.Invitee = us;
             mi.Status = "Accepted";
-            newM.Participants.Add(mi);
-            us.InvitationsToMeetings.Add(mi);
-
+            List<MeetingInvitation> ffs = new List<MeetingInvitation>();
+            ffs.Add(mi);
+            newM.Participants = ffs;
+            if (us.InvitationsToMeetings == null)
+            {
+                us.InvitationsToMeetings = ffs;
+            }
+            else us.InvitationsToMeetings.Add(mi);
             db.Meetings.Add(newM);
             db.MeetingInvitations.Add(mi);
             db.Users.Attach(us);
@@ -85,13 +119,14 @@ namespace ProjectPRO.Controllers
             return View(model);
         }
 
-        public ActionResult CrNote(CreateNoteViewModel model)
+        public ActionResult CrNote(CreateNoteViewModel model, int meetid)
         {
             Note NewNote = new Note();
             var usi = User.Identity.GetUserId();
             var us = db.Users.Where(u => u.Id == usi).Single();
             NewNote.Author = us;
-            Meeting met = db.Meetings.Where(m => m.MId == model.MeetId).Single();
+            Meeting met = new Meeting();
+            met=db.Meetings.Where(m => m.MId == meetid).Single();
             NewNote.Meeting = met;
             NewNote.Text = model.Text;
             db.Notes.Add(NewNote);
@@ -126,6 +161,14 @@ namespace ProjectPRO.Controllers
         {
             MeetingInvitation inv = new MeetingInvitation();
             inv.Status = "Invited";
+            if (!db.MeetingInvitations.Any())
+            {
+                inv.InvId = 1;
+            }
+            if (db.MeetingInvitations.Any())
+            {
+                inv.InvId = db.MeetingInvitations.Max(ii => ii.InvId) + 1;
+            }
             var meet = db.Meetings.Where(m => m.MId == meetid).Single();
             inv.Meeting = meet;
             var us = db.Users.Where(u => u.Id == uid).Single();
@@ -135,6 +178,7 @@ namespace ProjectPRO.Controllers
             meet.Participants.Add(inv);
             db.Meetings.Attach(meet);
             db.Users.Attach(us);
+            db.SaveChanges();
             return RedirectToAction("InviteToMeeting", "Meeting", new { @meetid = meetid });
         }
 
@@ -156,31 +200,52 @@ namespace ProjectPRO.Controllers
             InviteToMeetingViewModel model = new InviteToMeetingViewModel();
             var usi = User.Identity.GetUserId();
             var us = db.Users.Where(u => u.Id == usi).Single();
-            List<GroupPerson> gp = db.GroupPersons.Where(g => g.User.Id == usi).ToList();
-            List<Group> gro = new List<Group>();
-            for (var i = 0; i < gp.Count; i++)
-            {
-                gro.Add(gp[i].Group);
-            }
+            var met = db.Meetings.Where(m => m.MId == meetid).Single();
+            var gro = met.Group;
             List<ApplicationUser> users = new List<ApplicationUser>();
-            gp = new List<GroupPerson>();
-            for (var j = 0; j < gro.Count; j++)
+            List<GroupPerson> gpr = db.GroupPersons.ToList();
+            List<GroupPerson> gp = new List<GroupPerson>();
+            for (var j = 0; j < gpr.Count; j++)
             {
-                gp.AddRange(db.GroupPersons.Where(r => r.Group.GId == gro[j].GId).ToList());
+               if(gpr[j].Group.GId==gro.GId)
+                {
+                    gp.Add(gpr[j]);
+                }               
             }
             for (var t = 0; t < gp.Count; t++)
             {
                 users.Add(gp[t].User);
             }
-            model.Users = users;
+            List<MeetingInvitation> li = db.MeetingInvitations.Where(l => l.Meeting.MId == meetid).ToList();
+            List<ApplicationUser> inUsers = new List<ApplicationUser>();
+            for (var ij = 0; ij < li.Count(); ij++)
+            {
+                inUsers.Add(li[ij].Invitee);
+            }
+            List<ApplicationUser> finUsers = new List<ApplicationUser>();
+            for (var i = 0; i < users.Count; i++)
+            {
+                int co = 0;
+                for(var ti = 0; ti < inUsers.Count; ti++)
+                {
+                    if (inUsers[ti] != users[i])
+                    {
+                        co = co + 1;
+                    }
+                }
+                if (co == inUsers.Count)
+                {
+                    finUsers.Add(users[i]);
+                }
+            }
+            model.Users = finUsers;
             model.MeetId = meetid;
             return View(model);
         }
 
-        public ActionResult InviteList(int meetid)
+        public ActionResult InviteList()
         {
-            InviteListViewModel model = new InviteListViewModel();
-            model.Meetingid = meetid;
+            InviteListViewModel model = new InviteListViewModel();           
             return View(model);
         }
     }

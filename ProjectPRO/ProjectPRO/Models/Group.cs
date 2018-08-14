@@ -11,7 +11,7 @@ namespace ProjectPRO.Models
 
         public string Description { get; set; }
 
-        public ICollection<Meeting> Meetings { get; set; }
+        public virtual ICollection<Meeting> Meetings { get; set; }
 
         public byte[] Avatar { get; set; }
         public ICollection<Discussion> Discussions { get; set; }

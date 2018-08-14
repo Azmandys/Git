@@ -5,6 +5,13 @@
 }
 <div class="container">
     <h2>Invite List</h2>
+
+@if (Model.Invites == null)
+{
+   <h3>You have no invites</h3>
+}
+else
+{
     <table>
         <tr>
             <th>Meeting Name</th>
@@ -15,10 +22,11 @@
         <tr>
             <td>@item.Meeting.Name</td>
             <td>@item.Meeting.Date</td>
-            <td>@Html.ActionLink("Accept", "AcceptInvite","Meeting", new { @meetid = Model.Meetingid  ,@invid = item.InvId})</td>
-            <td>@Html.ActionLink("Reject", "RejectInvite","Meeting", new { @meetid = Model.Meetingid , @invid = item.InvId })</td>
+            <td>@Html.ActionLink("Accept", "AcceptInvite", "Meeting", new { @meetid = item.Meeting.MId, @invid = item.InvId })</td>
+            <td>@Html.ActionLink("Reject", "RejectInvite", "Meeting", new { @meetid = item.Meeting.MId, @invid = item.InvId })</td>
         </tr>
         }
     </table>
+}
 </div>
 

@@ -22,9 +22,9 @@ namespace ProjectPRO.Models
 
         public ICollection<File> Files { get; set; }
 
-        public ICollection<MeetingInvitation> InvitationsToMeetings { get; set; }
+        public virtual ICollection<MeetingInvitation> InvitationsToMeetings { get; set; }
 
-        public ICollection<Note> Notes { get; set; }
+        public virtual ICollection<Note> Notes { get; set; }
 
         public virtual ICollection<GroupPerson> Groups { get; set; } 
         

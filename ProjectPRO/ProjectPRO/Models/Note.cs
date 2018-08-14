@@ -14,8 +14,8 @@ namespace ProjectPRO.Models
 
         public string Text { get; set; }
 
-        public ApplicationUser Author { get; set; }
+        public virtual ApplicationUser Author { get; set; }
 
-        public Meeting Meeting { get; set; }
+        public virtual Meeting Meeting { get; set; }
     }
 }

@@ -17,10 +17,10 @@ namespace ProjectPRO.Models
 
         public string Time { get; set; }
 
-        public Group Group { get; set; }
+        public virtual Group Group { get; set; }
 
-        public ICollection<MeetingInvitation> Participants { get; set; }
+        public virtual ICollection<MeetingInvitation> Participants { get; set; }
 
-        public ICollection<Note> Notes { get; set; }
+        public virtual ICollection<Note> Notes { get; set; }
     }
 }
