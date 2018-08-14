@@ -10,7 +10,7 @@
      Time: @Model.Time<br />
      Participants: @Html.ActionLink("Invite new people","InviteToMeeting","Meeting",new {@meetid=Model.MeetId },new { @class = "btn" })
      <br />
-     <table>
+     <table style="height:15vh;overflow-y:auto;border:solid">
          <tr>
              <th>Name</th>
              <th>Index Number</th>
@@ -26,7 +26,7 @@
          }
      </table>
     <h4>Notes:  @Html.ActionLink("Create new note","CreateNote","Meeting",new { @meetid = Model.MeetId }, new { @class = "btn" })</h4>
-    <table>
+    <table style="height:15vh;overflow-y:auto;border:solid">
         <tr>
             <th>Author</th>
             <th>Note</th>
@@ -34,8 +34,8 @@
         @foreach (var no in Model.Notes)
         {
             <tr>
-                <td>@no.Author.Name</td>
-                <td>@no.Text</td>
+                <td style="width:20%">@no.Author.Name</td>
+                <td style="width:80%">@no.Text</td>
             </tr>
         }
     </table>

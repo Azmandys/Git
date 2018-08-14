@@ -15,7 +15,7 @@
     }
     else
     {
-    <table>
+    <table style="height:15vh;overflow-y:auto">
         <thead>
             <tr>
                 <th>Name</th>
@@ -26,18 +26,7 @@
         </thead>
         <tbody>
             @foreach (var item in Model.Meetings)
-            {
-                if (item == null)
-                {
-                    <tr>
-                        <td>error</td>
-                        <td>error</td>
-                        <td>error</td>
-                        <td>error</td>
-                    </tr>
-                }
-                else
-                {
+            {                            
                 <tr>
                     <td>@item.Name</td>
                     <td>@item.Group.Name</td>
@@ -45,7 +34,7 @@
                     <td>@item.Time</td>
                     <td>@Html.ActionLink("Manage", "ManageMeeting", "Meeting", new { @meetid = item.MId }, new { @class = "btn" })</td>
                 </tr>
-                    }
+                    
                 }
         </tbody>
     </table>
