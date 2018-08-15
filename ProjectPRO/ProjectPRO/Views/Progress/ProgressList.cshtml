@@ -1,0 +1,26 @@
+﻿@model ProjectPRO.ViewModels.ProgressListViewModel
+@{
+    ViewBag.Title = "ProgressList";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+
+<div class="container">
+<h2>Progress List</h2>
+    @Html.ActionLink("New Progress","CreateProgress","Progress",new {@gid=Model.GrId },new { @class = "btn" })
+    <table style="height:50vh;overflow-y:auto">
+        <tr>
+            <th>Title</th>
+            <th>Progress</th>
+            <th>Value</th>
+        </tr>
+        @foreach (var item in Model.Progress)
+        {
+            <tr style="background:@item.Color">
+                <td>@item.Title</td>
+                <td><input type="range" min="1" max="100" value="@item.Prog" id="progRange" disabled/></td>
+                <td>@item.Prog</td>
+                <td>@Html.ActionLink("Change","ChangeProgress","Progress",new {@gid=Model.GrId ,@pid = item.PId },new { @class = "btn" });</td>
+            </tr>
+        }
+    </table>
+</div>

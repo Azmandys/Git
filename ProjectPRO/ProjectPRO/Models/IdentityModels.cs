@@ -56,6 +56,8 @@ namespace ProjectPRO.Models
         public DbSet<MeetingInvitation> MeetingInvitations { get; set; }
 
         public DbSet<Meeting> Meetings { get; set; }
+
+        public DbSet<Progress> Progress { get; set; }
         
         public DbSet<File> Files { get; set; }
 

@@ -9,10 +9,11 @@
 <h3 style="text-align:center">@Model.gNmae</h3>
     <p>@Model.gDesc</p>
         <h3 style="text-align:center">
+            @Html.ActionLink("Check progress","ProgressList","Progress",new { @gid = Model.GroupId },new { @class = "btn" })
             @Html.ActionLink("Add new members", "AddGroups", "Home", new { @gid=Model.GroupId }, new { @class = "btn" })
         Group Members
         </h3>
-    <div style="height:20vh;overflow:auto">
+    <div style="height:20vh;overflow-y:auto">
         <table style="border:solid">
             <thead>
                 <tr>
@@ -25,10 +26,10 @@
                 @foreach (var item in Model.gUsers)
                 {
                    <tr>
-                       <td>@item.Name</td>
-                       <td>@item.IndexNumber</td>
-                       <td>@Model.gGro.Where(g => g.User == item).Single().Role</td>
-                       <td>@Model.gGro.Where(g => g.User ==item).Single().Status</td>
+                       <td style="width:40%">@item.Name</td>
+                       <td style="width:15%">@item.IndexNumber</td>
+                       <td style="width:25%">@Model.gGro.Where(g => g.User == item).Single().Role</td>
+                       <td style="width:20%">@Model.gGro.Where(g => g.User ==item).Single().Status</td>
                    </tr>
                 }
 

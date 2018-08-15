@@ -14,6 +14,8 @@ namespace ProjectPRO.Models
         public virtual ICollection<Meeting> Meetings { get; set; }
 
         public byte[] Avatar { get; set; }
+
+        public virtual ICollection<Progress> Progress { get; set; } 
         public ICollection<Discussion> Discussions { get; set; }
         public ICollection<File> Files { get; set; }
         public virtual ICollection<GroupPerson> Users { get; set; }

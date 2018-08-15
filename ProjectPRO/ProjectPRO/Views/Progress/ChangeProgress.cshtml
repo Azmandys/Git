@@ -1,0 +1,37 @@
+﻿@model ProjectPRO.ViewModels.ChangeProgressViewModel
+@{
+    ViewBag.Title = "ChangeProgress";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+<div class="container">
+    @using (Html.BeginForm("ChProgress", "Progress", new { @gid = Model.GrId ,@pid=Model.PId}, FormMethod.Post))
+    {
+        <h2>Change Progress</h2>
+        <table>
+            <tr>
+                <td><label>Progress</label></td>
+                <td><input type="range" min="1" max="100" value="50" id="prgRange" name="prgRange"/></td>
+            </tr>
+            <tr>
+                <td><label>Value: </label></td>
+                <td><span id="val"></span></td>
+            </tr>
+            <tr>
+                <td><label>Color:</label></td>
+                <td><input type="color" id="colorIn" name="colorIn" /></td>
+            </tr>
+            <tr>
+                <td><input type="submit" class="btn" value="send" /></td>
+            </tr>
+        </table>
+    }
+</div>
+<script>
+    var slider = document.getElementById("prgRange");
+    var output = document.getElementById("val");
+    output.innerHTML = slider.value;
+
+    slider.oninput = function () {
+        output.innerHTML = this.value;
+    }
+</script>
